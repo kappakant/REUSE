@@ -1,0 +1,11 @@
+---- MODULE MC ----
+EXTENDS TwoCommit, TLC
+
+\* CONSTANT definitions @modelParameterConstants:0RM
+const_174725834193220000 == 
+{"r1", "r2", "r3", "r4"}
+----
+
+=============================================================================
+\* Modification History
+\* Created Wed May 14 17:32:21 EDT 2025 by johnnguyen
