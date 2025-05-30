@@ -139,8 +139,8 @@ CanOnlyBeCriticalIfTurn == \A p \in {0, 1} : processState[p] = "critical" => tur
 (***************************************************************************)
 THEOREM TypeCheck == Spec => []TypeOK
 
-I == \A p, q \in {0, 1}: (p#q /\ processState[p] = "critical") => (flag[q] = FALSE \/ turn = p \/ processState[q] = "sentRequest") \* sentRequest is an intermezzo before switching turns
-                          
+I == \A p, q \in {0, 1}: \/ processState[p] = "critical" => (flag[q] = FALSE \/ turn = p \/ processState[q] = "sentRequest") \* sentRequest is an intermezzo before switching turns
+                         \/ p = q \* removes scenarios which don't properly model the system, perhaps not idiomatic
 
 Inv == /\ TypeOK
        /\ I
@@ -327,13 +327,9 @@ THEOREM InductProperty == Inv /\ Next => Inv'
                 <4>. QED BY <2>b, <4>1, <4>2, <4>3, <4>4 DEF Inv, TypeOK, ProcessBeginWaiting
                 
             <3>2 I'
-                <4> PICK p: p \in {0, 1}
-                <4> PICK q: q \in {0, 1}
-                <4> SUFFICES ASSUME (p#q /\ processState[p] = "critical")'
-                             PROVE (flag[q] = FALSE \/ turn = p \/ processState[q] = "sentRequest")'
-                             BY DEF I
+                <4>1 processState[0] = "sentRequest" /\ turn' = 1 /\ processState' = [processState EXCEPT ![0] = "waiting"] BY <2>b DEF ProcessBeginWaiting
+                <4>2 processState'[0] = "waiting" \* BY <4>1 really, it should be correct
                 <4>. QED
-            
             \* This really should be working
             <3>3 MutualExclusion'
                 <4>1 processState' = [processState EXCEPT ![0] = "waiting"] BY <2>b DEF ProcessBeginWaiting
@@ -388,5 +384,5 @@ THEOREM Correctness == Spec => []MutualExclusion
     <1> QED BY <1>1, <1>2, <1>3, PTL \* Doesn't need <1>1, which is interesting.
 ==================================================
 \* Modification History
-\* Last modified Fri May 30 02:43:17 EDT 2025 by johnnguyen
+\* Last modified Fri May 30 02:29:27 EDT 2025 by johnnguyen
 \* Created Wed May 28 01:17:56 EDT 2025 by johnnguyen

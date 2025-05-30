@@ -2,7 +2,7 @@
 TLC2 Version 2.19 of 08 August 2024 (rev: 5a47802)
 @!@!@ENDMSG 2262 @!@!@
 @!@!@STARTMSG 2187:0 @!@!@
-Running breadth-first search Model-Checking with fp 81 and seed -3960304189037143180 with 4 workers on 8 cores with 1214MB heap and 2730MB offheap memory [pid: 72825] (Mac OS X 10.16 x86_64, AdoptOpenJDK 14.0.1 x86_64, OffHeapDiskFPSet, DiskStateQueue).
+Running breadth-first search Model-Checking with fp 80 and seed 8016271677019006854 with 4 workers on 8 cores with 1214MB heap and 2730MB offheap memory [pid: 72822] (Mac OS X 10.16 x86_64, AdoptOpenJDK 14.0.1 x86_64, OffHeapDiskFPSet, DiskStateQueue).
 @!@!@ENDMSG 2187 @!@!@
 @!@!@STARTMSG 2220:0 @!@!@
 Starting SANY...
@@ -27,13 +27,13 @@ Semantic processing of module MC
 SANY finished.
 @!@!@ENDMSG 2219 @!@!@
 @!@!@STARTMSG 2185:0 @!@!@
-Starting... (2025-05-29 21:01:26)
+Starting... (2025-05-29 21:01:12)
 @!@!@ENDMSG 2185 @!@!@
 @!@!@STARTMSG 2189:0 @!@!@
 Computing initial states...
 @!@!@ENDMSG 2189 @!@!@
 @!@!@STARTMSG 2190:0 @!@!@
-Finished computing initial states: 2 distinct states generated at 2025-05-29 21:01:27.
+Finished computing initial states: 2 distinct states generated at 2025-05-29 21:01:13.
 @!@!@ENDMSG 2190 @!@!@
 @!@!@STARTMSG 2193:0 @!@!@
 Model checking completed. No error has been found.
@@ -42,7 +42,7 @@ Model checking completed. No error has been found.
   calculated (optimistic):  val = 1.7E-17
 @!@!@ENDMSG 2193 @!@!@
 @!@!@STARTMSG 2201:0 @!@!@
-The coverage statistics at 2025-05-29 21:01:27
+The coverage statistics at 2025-05-29 21:01:13
 @!@!@ENDMSG 2201 @!@!@
 @!@!@STARTMSG 2773:0 @!@!@
 <Init line 52, col 1 to line 52, col 4 of module Peterson>: 2:2
@@ -57,7 +57,7 @@ The coverage statistics at 2025-05-29 21:01:27
   line 55, col 8 to line 55, col 47 of module Peterson: 2
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2772:0 @!@!@
-<ProcessRequestFlag line 62, col 1 to line 62, col 21 of module Peterson>: 8:12
+<ProcessRequestFlag line 62, col 1 to line 62, col 21 of module Peterson>: 9:12
 @!@!@ENDMSG 2772 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
   line 63, col 8 to line 63, col 31 of module Peterson: 52
@@ -75,7 +75,7 @@ The coverage statistics at 2025-05-29 21:01:27
   line 66, col 8 to line 66, col 25 of module Peterson: 12
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2772:0 @!@!@
-<ProcessBeginWaiting line 68, col 1 to line 68, col 22 of module Peterson>: 6:12
+<ProcessBeginWaiting line 68, col 1 to line 68, col 22 of module Peterson>: 7:12
 @!@!@ENDMSG 2772 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
   line 69, col 8 to line 69, col 38 of module Peterson: 52
@@ -93,7 +93,7 @@ The coverage statistics at 2025-05-29 21:01:27
   line 72, col 8 to line 72, col 25 of module Peterson: 12
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2772:0 @!@!@
-<ProcessEnterCritical line 74, col 1 to line 74, col 23 of module Peterson>: 4:4
+<ProcessEnterCritical line 74, col 1 to line 74, col 23 of module Peterson>: 2:4
 @!@!@ENDMSG 2772 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
   line 75, col 8 to line 75, col 34 of module Peterson: 44
@@ -195,7 +195,7 @@ The coverage statistics at 2025-05-29 21:01:27
 End of statistics.
 @!@!@ENDMSG 2202 @!@!@
 @!@!@STARTMSG 2200:0 @!@!@
-Progress(6) at 2025-05-29 21:01:27: 36 states generated (895 s/min), 20 distinct states found (497 ds/min), 0 states left on queue.
+Progress(6) at 2025-05-29 21:01:13: 36 states generated (883 s/min), 20 distinct states found (490 ds/min), 0 states left on queue.
 @!@!@ENDMSG 2200 @!@!@
 @!@!@STARTMSG 2199:0 @!@!@
 36 states generated, 20 distinct states found, 0 states left on queue.
@@ -207,5 +207,5 @@ The depth of the complete state graph search is 6.
 The average outdegree of the complete state graph is 1 (minimum is 0, the maximum 2 and the 95th percentile is 2).
 @!@!@ENDMSG 2268 @!@!@
 @!@!@STARTMSG 2186:0 @!@!@
-Finished in 2436ms at (2025-05-29 21:01:27)
+Finished in 2471ms at (2025-05-29 21:01:13)
 @!@!@ENDMSG 2186 @!@!@

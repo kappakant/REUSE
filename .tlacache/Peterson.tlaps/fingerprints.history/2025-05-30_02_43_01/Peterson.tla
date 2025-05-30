@@ -331,7 +331,6 @@ THEOREM InductProperty == Inv /\ Next => Inv'
                 <4> PICK q: q \in {0, 1}
                 <4> SUFFICES ASSUME (p#q /\ processState[p] = "critical")'
                              PROVE (flag[q] = FALSE \/ turn = p \/ processState[q] = "sentRequest")'
-                             BY DEF I
                 <4>. QED
             
             \* This really should be working
@@ -388,5 +387,5 @@ THEOREM Correctness == Spec => []MutualExclusion
     <1> QED BY <1>1, <1>2, <1>3, PTL \* Doesn't need <1>1, which is interesting.
 ==================================================
 \* Modification History
-\* Last modified Fri May 30 02:43:17 EDT 2025 by johnnguyen
+\* Last modified Fri May 30 02:42:58 EDT 2025 by johnnguyen
 \* Created Wed May 28 01:17:56 EDT 2025 by johnnguyen

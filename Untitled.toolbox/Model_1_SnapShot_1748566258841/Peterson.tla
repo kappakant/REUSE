@@ -139,8 +139,8 @@ CanOnlyBeCriticalIfTurn == \A p \in {0, 1} : processState[p] = "critical" => tur
 (***************************************************************************)
 THEOREM TypeCheck == Spec => []TypeOK
 
-I == \A p, q \in {0, 1}: (p#q /\ processState[p] = "critical") => (flag[q] = FALSE \/ turn = p \/ processState[q] = "sentRequest") \* sentRequest is an intermezzo before switching turns
-                          
+I == \A p, q \in {0, 1}: \/ processState[p] = "critical" => (flag[q] = FALSE \/ turn = p \/ processState[q] = "sentRequest") \* sentRequest is an intermezzo before switching turns
+                              \/ p = q \* removes scenarios which don't properly model the system, perhaps not idiomatic
 
 Inv == /\ TypeOK
        /\ I
@@ -153,33 +153,7 @@ Inv3 == ~ \E p: processState[p] = "critical"
 THEOREM InitProperty == Init => Inv
     BY DEF Init, Inv, ProcessRequestFlag, ProcessBeginWaiting, ProcessEnterCritical, ProcessExitCritical, TypeOK, MutualExclusion
 
-\* Removed MutualExclusion because it's more difficult in InductProperty.
-\* JK it's much harder this way
-(***************************************************************************
 THEOREM SafetyProperty == Inv => MutualExclusion
-    <1> SUFFICES ASSUME Inv
-                 PROVE MutualExclusion
-        OBVIOUS
-    <1>1. I BY DEF Inv
-    <1> SUFFICES ASSUME ~MutualExclusion
-                  PROVE FALSE
-    <1>2 processState[1] = "critical" BY DEF MutualExclusion
-                  
-    <1>3 processState[0] = "critical" BY DEF MutualExclusion
-    <1>4 processState[0] = "critical" => (flag[1] = FALSE \/ turn = 0 \/ processState[1] = "sentRequest") BY <1>1 DEF I
-    <1>5 (flag[1] = FALSE \/ turn = 0 \/ processState[1] = "sentRequest") BY <1>3, <1>4
-    
-    <1>a CASE flag[1] = FALSE
-    
-    <1>b CASE turn = 0
-    
-    <1>c CASE processState[1] = "sentRequest"
-        <2>1 processState[1] = "sentRequest" /\ processState[1] = "critical" BY <1>c, <1>2
-        <2>. QED BY <2>1
-        
-    <1>. QED BY <1>a, <1>b, <1>c, <1>5
- ***************************************************************************)
- THEOREM SafetyProperty == Inv => MutualExclusion
     BY DEF Inv, MutualExclusion
 
 (***************************************************************************)
@@ -191,6 +165,10 @@ THEOREM SafetyProperty == Inv => MutualExclusion
 
 \* Figure out how to prove internal propositions
 \* nvm I just broke it. Next or [Next]_vars? Are stutter steps really that big of a deal?
+ProperDistribution == \A p, q \in {0, 1}: 
+                      (\/ processState[p] = "critical" => flag[q] = FALSE \/ turn = p \/ processState[q] = "sentRequest" \/ p = q)' = 
+                      (\/ processState'[p] = "critical" => flag[q'] = FALSE \/ turn = p' \/ processState'[q] = "sentRequest" \/ p' = q')
+
 THEOREM InductProperty == Inv /\ Next => Inv'
     <1> SUFFICES ASSUME Inv, Next
                  PROVE Inv'
@@ -218,25 +196,14 @@ THEOREM InductProperty == Inv /\ Next => Inv'
                 <4>. QED BY <2>a, <4>1, <4>2, <4>3, <4>4 DEF Inv, TypeOK, ProcessRequestFlag
 
             <3>2. I'
-                <4>1 I BY DEF Inv
-                <4>2 \A m, n \in {0, 1}: (m#n /\ processState[m] = "critical") => (flag[n] = FALSE \/ turn = m \/ processState[n] = "sentRequest") BY DEF Inv, I
-                
-                <4>3 (0#1 /\ processState[0] = "critical") => (flag[1] = FALSE \/ turn = 0 \/ processState[1] = "sentRequest") BY <4>2
-                <4>4 turn' = turn BY <2>a DEF ProcessRequestFlag
-                <4>5 flag' = [flag EXCEPT ![0] = TRUE] BY <2>a DEF ProcessRequestFlag
-                <4>6 flag'[1] = flag[1] BY <4>5, <4>3
-                <4>7 processState' = [processState EXCEPT ![0] = "sentRequest"] BY <2>a DEF ProcessRequestFlag
-                <4>8 processState'[1] = processState[1] BY <4>7, <4>3
-                <4>9 (0#1 /\ processState[0] = "critical") => (flag[1] = FALSE \/ turn = 0 \/ processState[1] = "sentRequest")' BY <4>3, <4>4, <4>6, <4>8
-                <4>10 (0#1 /\ processState[0] = "critical")' => (0#1 /\ processState[0] = "critical")
-                <4> SUFFICES ASSUME (0#1 /\ processState[0] = "critical")'
-                             PROVE (0#1 /\ processState[0] = "critical")
-                             
-                <4>11 (0#1 /\ processState[0] = "critical")' => (flag[1] = FALSE \/ turn = 0 \/ processState[1] = "sentRequest")' BY <4>9, <4>10
-        
-                \* Not necessarily true
-                <4>20 ((~\E m, n \in {0, 1}: (m#n /\ processState[m] = "critical"))')
-                <4>. QED BY <4>20 DEF I
+                <4>1. \A m, n \in {0, 1}: (m#n /\ processState[m] = "critical") => (flag[n] = FALSE \/ turn = m \/ processState[n] = "sentRequest") BY DEF Inv, I
+                <4>2. TAKE p, q \in {0, 1}
+                <4>3. TRUE
+                <4>a CASE flag'[q] = FALSE
+                <4>b CASE turn' = p
+                <4>c CASE processState'[q] = "sentRequest"
+
+                <4>. QED BY <4>1, <4>2, <4>a, <4>b, <4>c DEF I
                
                 \* material implication strategy
                 (***********************************************************
@@ -246,101 +213,11 @@ THEOREM InductProperty == Inv /\ Next => Inv'
                                PROVE (flag'[q] = FALSE \/ turn' = p \/ processState'[q] = "sentRequest") BY <4>2
                 <4>. QED
                  ***********************************************************)
-                 
+                
+                
             <3>3. MutualExclusion'
-                <4>1 MutualExclusion BY DEF Inv
-                <4>2 ~processState[0] = "critical" \/ ~processState[1] = "critical" BY <4>1 DEF MutualExclusion
-                <4>3 I BY DEF Inv
-                
-                \* W.L.O.G
-                <4>a CASE processState[0] # "critical" /\ processState[1] = "critical"
-                    <5>1 TRUE
-                    <5>. QED
-   
-\*                (***********************************************************
-\*                <4> SUFFICES ASSUME ~MutualExclusion'
-\*                             PROVE FALSE
-\*                <4>3 processState'[0] = "critical" /\ processState'[1] = "critical" BY DEF MutualExclusion
-\*                
-\*                \* Intuitively obvious, but I'm having the EXCEPT problem
-\*                <4>4 (processState'[0] = "critical" <=> ProcessEnterCritical(0)) /\ (processState'[1] = "critical" <=> ProcessEnterCritical(1))
-\*                    <5> ASSUME Next
-\*                        PROVE (processState'[0] = "critical" <=> ProcessEnterCritical(0)) /\ (processState'[1] = "critical" <=> ProcessEnterCritical(1))
-\*                    <5>a CASE Process0
-\*                        <6>a CASE ProcessRequestFlag(0)
-\*                           OBVIOUS
-\*                        <6>b CASE ProcessBeginWaiting(0)
-\*                           OBVIOUS
-\*                        <6>c CASE ProcessEnterCritical(0)
-\*                           OBVIOUS
-\*                        <6>d CASE ProcessExitCritical(0)
-\*                           OBVIOUS
-\*                        <6>. QED BY <6>a, <6>b, <6>c, <6>d
-\*                    <5>b CASE Process1
-\*                        <6>a CASE ProcessRequestFlag(1)
-\*                           OBVIOUS
-\*                        <6>b CASE ProcessBeginWaiting(1)
-\*                           OBVIOUS
-\*                        <6>c CASE ProcessEnterCritical(1)
-\*                           OBVIOUS
-\*                        <6>d CASE ProcessExitCritical(1)
-\*                           OBVIOUS
-\*                        <6>. QED BY <6>a, <6>b, <6>c, <6>d
-\*                    <5>. QED BY <5>a, <5>b
-\*
-\*                <4>5 ProcessEnterCritical(0) BY <4>4, <4>3
-\*                <4>6 flag[1] = FALSE \/ turn = 0 \/ processState[1] = "sentRequest" BY <4>5 DEF ProcessEnterCritical
-\*                
-\*                <4>a CASE flag[1] = FALSE
-\*                
-\*                <4>b CASE turn = 0
-\*                
-\*                <4>c CASE processState[1] = "sentRequest"
-\*                    <5>1 processState[1] # "waiting" BY <4>c
-\*                    <5>2 ~ProcessEnterCritical(1) BY <4>4, <5>1 DEF ProcessEnterCritical
-\*                    <5>3 processState'[1] # "critical" BY <4>4, <5>2
-\*                    <5>4 processState'[1] # "critical" /\ processState'[1] = "critical" BY <4>3, <5>3
-\*                    <5>. QED BY <5>4
-\*                 ***********************************************************)
-                <4>10 processState'[0] # "critical" \/ processState'[1] # "critical"
-                
-                
-                <4>11 processState' = [processState EXCEPT ![0] = "sentRequest"] BY <2>a DEF ProcessRequestFlag
-                <4>12 processState'[0] # "critical" \* BY <4>11
-                
-                <4>. QED BY <4>12 DEF MutualExclusion
             <3>. QED BY <3>1, <3>2, <3>3 DEF Inv
         <2>b CASE ProcessBeginWaiting(0)
-            <3>1 TypeOK'
-                <4>1. TypeOK BY DEF Inv
-                <4>2. turn' \in {0, 1} BY <2>b DEF Inv, TypeOK, ProcessBeginWaiting
-                <4>3. \A p \in {0, 1}: flag'[p] \in {TRUE, FALSE} 
-                    <5>1. \A p \in {0, 1}: flag[p] \in {TRUE, FALSE} BY <2>b DEF TypeOK, Inv
-                    <5>2. flag' = flag BY <2>b DEF ProcessBeginWaiting
-                    <5>3. flag' \in [{0,1} -> {TRUE, FALSE}] BY <5>2 DEF Inv, TypeOK
-                    <5>. QED BY <5>1, <5>2, <5>3 DEF Inv
-                <4>4. processState' \in [{0,1} -> {"idle", "sentRequest", "waiting", "critical"}]
-                    <5>1. processState \in [{0,1} -> {"idle", "sentRequest", "waiting", "critical"}] BY <2>b DEF Inv, TypeOK, ProcessBeginWaiting
-                    <5>2. processState' = [processState EXCEPT ![0] = "waiting"] BY <2>b DEF ProcessBeginWaiting
-                    <5>3. processState' \in [{0,1} -> {"idle", "sentRequest", "waiting", "critical"}] BY <5>2 DEF Inv, TypeOK
-                    <5>. QED BY <5>1, <5>2, <5>3 DEF Inv
-                <4>. QED BY <2>b, <4>1, <4>2, <4>3, <4>4 DEF Inv, TypeOK, ProcessBeginWaiting
-                
-            <3>2 I'
-                <4> PICK p: p \in {0, 1}
-                <4> PICK q: q \in {0, 1}
-                <4> SUFFICES ASSUME (p#q /\ processState[p] = "critical")'
-                             PROVE (flag[q] = FALSE \/ turn = p \/ processState[q] = "sentRequest")'
-                             BY DEF I
-                <4>. QED
-            
-            \* This really should be working
-            <3>3 MutualExclusion'
-                <4>1 processState' = [processState EXCEPT ![0] = "waiting"] BY <2>b DEF ProcessBeginWaiting
-                <4>2 processState'[0] # "critical" \* BY <4>1 DEF ProcessBeginWaiting
-                <4>. QED BY <4>1 DEF MutualExclusion
-            
-            <3>. QED BY <3>1, <3>2, <3>3 DEF Inv
         <2>c CASE ProcessEnterCritical(0)
         <2>d CASE ProcessExitCritical(0)
         <2> QED BY <2>1, <2>a, <2>b, <2>c, <2>d DEF ProcessRequestFlag, ProcessBeginWaiting, ProcessEnterCritical, ProcessExitCritical, TypeOK, MutualExclusion
@@ -388,5 +265,5 @@ THEOREM Correctness == Spec => []MutualExclusion
     <1> QED BY <1>1, <1>2, <1>3, PTL \* Doesn't need <1>1, which is interesting.
 ==================================================
 \* Modification History
-\* Last modified Fri May 30 02:43:17 EDT 2025 by johnnguyen
+\* Last modified Thu May 29 20:50:25 EDT 2025 by johnnguyen
 \* Created Wed May 28 01:17:56 EDT 2025 by johnnguyen
