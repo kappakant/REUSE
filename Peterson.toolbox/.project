@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>Peterson</name>
+	<comment></comment>
+	<projects>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>toolbox.builder.TLAParserBuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>toolbox.natures.TLANature</nature>
+	</natures>
+	<linkedResources>
+		<link>
+			<name>Peterson.tla</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Peterson.tla</locationURI>
+		</link>
+		<link>
+			<name>PetersonInv.tla</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/PetersonInv.tla</locationURI>
+		</link>
+		<link>
+			<name>PetersonLemmas.tla</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/PetersonLemmas.tla</locationURI>
+		</link>
+	</linkedResources>
+</projectDescription>
