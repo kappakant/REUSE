@@ -56,13 +56,18 @@ THEOREM PRFInduction0 == Inv /\ Next /\ ProcessRequestFlag(0) => Inv'
                 <4>4 processState'[q] = "sentRequest" BY <1>1, <4>2, <4>3 DEF TypeOK
                 <4>. QED BY <2>a, <4>4
                 
+            \* INCOMPLETE. <3>b NEEDED
             <3>b CASE q = 1
                 <4>1 p = 0 BY <1>1, <2>5, <3>b DEF TypeOK
                 <4>2 processState'[p] = "critical" BY <2>1
+                <4>3 processState'[0] = "critical" BY <4>1, <4>2
                 <4>4 processState' = [processState EXCEPT ![p] = "sentRequest"] BY <1>1, <4>1 DEF ProcessRequestFlag, TypeOK
                 <4>5 processState'[p] = "sentRequest" BY <1>1, <4>4 DEF TypeOK
                 
-                <4>. QED BY <4>2, <4>5
+                \* Try to prove that previous state was not idle?
+                \* (flag[(1 - p)] = FALSE \/ turn = p) was true in previous state for p
+                \* try to prove that previous state must necessarily be waiting?
+                <4>. QED
                 
             <3>. QED BY <3>a, <3>b
         
@@ -75,15 +80,19 @@ THEOREM PRFInduction0 == Inv /\ Next /\ ProcessRequestFlag(0) => Inv'
                 <4>4 processState'[q] = "sentRequest" BY <1>1, <4>2, <4>3 DEF TypeOK
                 <4>. QED BY <2>b, <4>4
                 
-                
-                
+            \* INCOMPLETE. <3>b NEEDED
             <3>b CASE q = 1
+            
+            (*
                 <4>1 p = 0 BY <1>1, <2>5, <3>b DEF TypeOK
                 <4>2 processState'[p] = "critical" BY <2>1
-                <4>4 processState' = [processState EXCEPT ![p] = "sentRequest"] BY <1>1, <4>1 DEF ProcessRequestFlag, TypeOK
-                <4>5 processState'[p] = "sentRequest" BY <1>1, <4>4 DEF TypeOK
+                <4>3 processState'[0] = "critical" BY <4>1, <4>2
                 
-                <4>. QED BY <4>2, <4>5
+                <4>4 processState[q] = "sentRequest"
+                    <5>1 processState'[q] = "waiting" BY <2>b
+                    <5>. QED BY <5>1 DEF Next, Process0, ProcessBeginWaiting
+                <4>. QED
+            *)    
                 
             <3>. QED BY <3>a, <3>b
         
@@ -176,5 +185,5 @@ THEOREM PExCInduction1 == Inv /\ Next /\ ProcessExitCritical(1) => Inv'
     <1>. QED
 =============================================================================
 \* Modification History
-\* Last modified Fri May 30 15:32:43 EDT 2025 by johnnguyen
+\* Last modified Fri May 30 15:30:36 EDT 2025 by johnnguyen
 \* Created Fri May 30 09:25:52 EDT 2025 by johnnguyen
