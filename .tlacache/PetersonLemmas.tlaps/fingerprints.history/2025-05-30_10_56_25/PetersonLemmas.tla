@@ -24,19 +24,31 @@ THEOREM PRFInduction0 == Inv /\ Next /\ ProcessRequestFlag(0) => Inv'
     
     <1>2 I'
         <2> PICK p \in {0,1}: TRUE OBVIOUS
-        <2> PICK q \in {0,1}: TRUE OBVIOUS
+        <2>69 PICK q \in {0,1}: TRUE OBVIOUS
         <2> SUFFICES ASSUME (p#q /\ processState[p] = "critical")'
                              PROVE (flag[q] = FALSE \/ turn = p \/ processState[q] = "sentRequest")'
-                             BY DEF I
+                             OBVIOUS
                              
+        \* Assuming we can convince TLAPS that universal instantiation works, it's probably easier to prove by contradiction                     
         <2>1 SUFFICES ASSUME ~((flag[q] = FALSE \/ turn = p \/ processState[q] = "sentRequest")')
                       PROVE FALSE
                       OBVIOUS
-                     
         <2>2 flag'[q] # FALSE /\ turn' # p /\ processState'[q] # "sentRequest" BY <2>1
-        <2>3 flag'[q] = TRUE BY <2>2
+        <2>3 flag'[q] = TRUE BY <2>2, <1>1 DEF TypeOK
+        <2>4 turn' = q BY <2>2, <1>1 DEF TypeOK
+        <2>6 processState'[q] \in {"idle", "waiting", "critical"} BY <2>2, <1>1 DEF TypeOK
+        <2>7 processState'[q] = "idle" \/ processState'[q] = "waiting" \/ processState'[q] = "critical" BY <2>6
         
-        <2>. QED BY <2>1 DEF I
+        \* case for each processState value?
+        <2>a CASE processState'[q] = "idle"
+            <3>1 q = 0 \/ q = 1 BY 69
+            <3>. QED
+        
+        <2>b CASE processState'[q] = "waiting"
+        
+        <2>c CASE processState'[q] = "critical"
+        
+        <2>. QED BY <2>7, <2>a, <2>b, <2>c DEF I
     
     <1>3 MutualExclusion'
         <2>1 processState'[0] # "critical" BY DEF ProcessRequestFlag
@@ -88,7 +100,7 @@ THEOREM PExCInduction1 == Inv /\ Next /\ ProcessExitCritical(1) => Inv'
 
 =============================================================================
 \* Modification History
-\* Last modified Fri May 30 10:34:58 EDT 2025 by johnnguyen
+\* Last modified Fri May 30 10:56:24 EDT 2025 by johnnguyen
 \* Created Fri May 30 09:25:52 EDT 2025 by johnnguyen
 
 THEOREM InductProperty == Inv /\ Next => Inv'
