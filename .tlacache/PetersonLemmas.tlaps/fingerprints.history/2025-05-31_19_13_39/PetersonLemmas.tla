@@ -248,6 +248,9 @@ THEOREM PEnCInduction0 == Inv /\ ProcessEnterCritical(0) => Inv'
         
         <2>12 flag[0] = FALSE \/ turn = 1 BY <2>7, <2>11
         
+        \* I method
+        <2>13 I'
+
         <2>. QED
     
     <1>3 I'
@@ -458,5 +461,5 @@ THEOREM PExCInduction1 == Inv /\ Next /\ ProcessExitCritical(1) => Inv'
     <1>. QED
 =============================================================================
 \* Modification History
-\* Last modified Sat May 31 19:20:32 EDT 2025 by johnnguyen
+\* Last modified Sat May 31 19:13:38 EDT 2025 by johnnguyen
 \* Created Fri May 30 09:25:52 EDT 2025 by johnnguyen

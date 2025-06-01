@@ -248,6 +248,13 @@ THEOREM PEnCInduction0 == Inv /\ ProcessEnterCritical(0) => Inv'
         
         <2>12 flag[0] = FALSE \/ turn = 1 BY <2>7, <2>11
         
+        \* I method
+        <2>13 flag'[1] = FALSE \/ turn' = 0 BY <2>8 DEF ProcessEnterCritical
+        <2>14 flag'[0] = FALSE \/ turn' = 1 BY <2>12 DEF ProcessEnterCritical
+        <2>15 I'
+        <2>16 (0#1 /\ processState'[1] = "critical") => flag'[0] = FALSE \/ turn' = 1 \/ processState'[0] = "sentRequest" BY <2>15 DEF I
+        <2>17 flag'[0] = FALSE \/ turn' = 1 \/ processState'[0] = "sentRequest" BY <2>1, <2>16
+
         <2>. QED
     
     <1>3 I'
@@ -458,5 +465,5 @@ THEOREM PExCInduction1 == Inv /\ Next /\ ProcessExitCritical(1) => Inv'
     <1>. QED
 =============================================================================
 \* Modification History
-\* Last modified Sat May 31 19:20:32 EDT 2025 by johnnguyen
+\* Last modified Sat May 31 19:19:52 EDT 2025 by johnnguyen
 \* Created Fri May 30 09:25:52 EDT 2025 by johnnguyen

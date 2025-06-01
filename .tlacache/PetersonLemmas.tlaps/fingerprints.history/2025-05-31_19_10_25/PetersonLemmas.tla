@@ -248,6 +248,24 @@ THEOREM PEnCInduction0 == Inv /\ ProcessEnterCritical(0) => Inv'
         
         <2>12 flag[0] = FALSE \/ turn = 1 BY <2>7, <2>11
         
+        \* Ugly brute-force
+        <2>a CASE flag[0] = FALSE
+            <3>a CASE flag[1] = FALSE
+                <4>. QED
+            <3>b CASE turn = 0
+                <4>. QED
+            <3>. QED BY <2>8, <3>a, <3>b
+        
+        <2>b CASE turn = 1
+            <3>a CASE flag[1] = FALSE
+                <4>. ~(flag[1] = FALSE \/ turn = 0) BY <2>b, <3>a DEF ProcessEnterCritical
+                <4>. QED
+                
+            <3>b CASE turn = 0
+                <4>. QED BY <2>b, <3>b
+                
+            <3>. QED BY <2>8, <3>a, <3>b
+
         <2>. QED
     
     <1>3 I'
@@ -458,5 +476,5 @@ THEOREM PExCInduction1 == Inv /\ Next /\ ProcessExitCritical(1) => Inv'
     <1>. QED
 =============================================================================
 \* Modification History
-\* Last modified Sat May 31 19:20:32 EDT 2025 by johnnguyen
+\* Last modified Sat May 31 19:10:24 EDT 2025 by johnnguyen
 \* Created Fri May 30 09:25:52 EDT 2025 by johnnguyen
