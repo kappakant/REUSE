@@ -178,16 +178,33 @@ THEOREM SafetyProperty == Inv => MutualExclusion
 \* Figure out how to prove internal propositions
 \* nvm I just broke it. Next or [Next]_vars? Are stutter steps really that big of a deal?
 \* Importing lemmas instead
+critReqs(p, q) == 
+    (p#q /\ processState[p] = "critical") => /\ flag[q] = FALSE \/ turn = p \/ processState[q] = "sentRequest" 
+                                             /\ flag[p] = TRUE
 
+requestReqs(p, q) == 
+    (p#q /\ processState[p] = "sentRequest") => flag[p] = TRUE
 
-I == \A p, q \in {0, 1}: (p#q /\ processState[p] = "critical") => (flag[q] = FALSE \/ turn = p \/ processState[q] = "sentRequest") \* sentRequest is an intermezzo before switching turns
-                          
+waitReqs(p, q) ==
+    (p#q /\ processState[p] = "waiting") => flag[p] = TRUE
+
+\* requestReqs and waitReqs necessary for mutualexclusion' in critReqs,
+\* but now I have to write proofs for requestReqs and waitReqs lol
+I == \A p, q \in {0, 1}: 
+    /\ critReqs(p, q)                                                    
+    /\ requestReqs(p, q)
+    /\ waitReqs(p, q)
+    
 
 Inv == /\ TypeOK
        /\ I
        /\ MutualExclusion
+       
+IndSpec == Inv /\ [][Next]_vars
+
+MutExSpec == MutualExclusion /\ [][Next]_vars
 
 ==================================================
 \* Modification History
-\* Last modified Fri May 30 09:41:26 EDT 2025 by johnnguyen
+\* Last modified Sun Jun 01 17:45:16 EDT 2025 by johnnguyen
 \* Created Wed May 28 01:17:56 EDT 2025 by johnnguyen

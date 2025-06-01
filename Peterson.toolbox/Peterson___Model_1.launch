@@ -5,19 +5,20 @@
     <stringAttribute key="distributedNetworkInterface" value="172.26.54.211"/>
     <intAttribute key="distributedNodesCount" value="1"/>
     <stringAttribute key="distributedTLC" value="off"/>
-    <intAttribute key="fpIndex" value="81"/>
+    <intAttribute key="fpIndex" value="57"/>
     <intAttribute key="maxHeapSize" value="25"/>
     <stringAttribute key="modelBehaviorInit" value="Init"/>
     <stringAttribute key="modelBehaviorNext" value="Next"/>
-    <stringAttribute key="modelBehaviorSpec" value="SpecIndCheck"/>
-    <intAttribute key="modelBehaviorSpecType" value="2"/>
+    <stringAttribute key="modelBehaviorSpec" value="IndSpec"/>
+    <intAttribute key="modelBehaviorSpecType" value="1"/>
     <stringAttribute key="modelBehaviorVars" value="flag, processState, turn"/>
     <stringAttribute key="modelComments" value=""/>
     <booleanAttribute key="modelCorrectnessCheckDeadlock" value="false"/>
     <listAttribute key="modelCorrectnessInvariants">
-        <listEntry value="1Inv"/>
+        <listEntry value="0Inv"/>
         <listEntry value="0MutualExclusion"/>
         <listEntry value="0ProperDistribution"/>
+        <listEntry value="1I"/>
     </listAttribute>
     <listAttribute key="modelCorrectnessProperties"/>
     <intAttribute key="modelEditorOpenTabs" value="8"/>
@@ -28,4 +29,8 @@
     <stringAttribute key="result.mail.address" value=""/>
     <stringAttribute key="specName" value="Peterson"/>
     <stringAttribute key="tlcResourcesProfile" value="local custom"/>
+    <listAttribute key="traceExploreExpressions">
+        <listEntry value="1processState[0] = &quot;waiting&quot; /\ processState[1] = &quot;critical&quot;"/>
+        <listEntry value="1processState = [i \in {0, 1} |-&gt; &quot;idle&quot;]"/>
+    </listAttribute>
 </launchConfiguration>
