@@ -204,15 +204,7 @@ IndSpec == Inv /\ [][Next]_vars
 
 MutExSpec == MutualExclusion /\ [][Next]_vars
 
-TestSpec ==
-    /\ TypeOK
-    /\ Inv
-    /\ [][Next]_vars
-
-InvImpMutEx ==
-    Inv => MutualExclusion
-
 ==================================================
 \* Modification History
-\* Last modified Sun Jun 01 22:01:08 EDT 2025 by johnnguyen
+\* Last modified Sun Jun 01 17:45:16 EDT 2025 by johnnguyen
 \* Created Wed May 28 01:17:56 EDT 2025 by johnnguyen

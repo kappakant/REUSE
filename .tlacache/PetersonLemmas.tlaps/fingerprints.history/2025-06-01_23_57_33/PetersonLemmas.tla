@@ -311,13 +311,23 @@ THEOREM PEnCInduction0 == Inv /\ ProcessEnterCritical(0) => Inv'
             <3>2 (p = 0 /\ q = 1) \/ (p = 1 /\ q = 0) BY <1>1, <3>1 DEF TypeOK
             
             <3>a CASE p = 0 /\ q = 1
-                <4>1 processState' = [processState EXCEPT ![p] = "critical"] BY <3>a DEF ProcessEnterCritical
+                <4>1 processState' = [processState EXCEPT ![p] = "critical"] BY <3>a DEF ProcessExitCritical
                 
-                <4>2 processState'[p] = "critical" BY <1>1, <3>a DEF TypeOK, ProcessEnterCritical
+                <4>2 processState'[p] = "critical" BY <1>1, <3>a DEF TypeOK, ProcessExitCritical
                 <4>3 processState'[p] = "sentRequest" BY <3>1
                 <4>. QED BY <4>2, <4>3
             
             <3>b CASE p = 1 /\ q = 0
+                <4>1 flag' = [flag EXCEPT ![0] = FALSE] BY DEF ProcessExitCritical
+                <4>2 processState' = [processState EXCEPT ![0] = "idle"] BY DEF ProcessExitCritical
+                <4>3 processState'[1] = "sentRequest" BY <3>1, <3>b
+                <4>4 processState[1] = "sentRequest" BY <1>1, <4>2, <4>3 DEF TypeOK
+                <4>5 flag[1] = TRUE BY <4>4 DEF Inv, I, requestReqs
+                
+                <4>6 flag' = [flag EXCEPT ![0] = FALSE] BY DEF ProcessExitCritical
+                <4>7 flag'[1] = TRUE BY <1>1, <4>5, <4>6 DEF TypeOK
+                                     
+                <4>. QED BY <3>b, <4>7
             
             <3>. QED BY <3>2, <3>a, <3>b
             
@@ -470,5 +480,5 @@ THEOREM PExCInduction1 == Inv /\ Next /\ ProcessExitCritical(1) => Inv'
     <1>. QED
 =============================================================================
 \* Modification History
-\* Last modified Mon Jun 02 00:09:44 EDT 2025 by johnnguyen
+\* Last modified Sun Jun 01 23:57:20 EDT 2025 by johnnguyen
 \* Created Fri May 30 09:25:52 EDT 2025 by johnnguyen

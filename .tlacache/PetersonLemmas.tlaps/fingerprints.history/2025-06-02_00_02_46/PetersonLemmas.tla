@@ -318,6 +318,8 @@ THEOREM PEnCInduction0 == Inv /\ ProcessEnterCritical(0) => Inv'
                 <4>. QED BY <4>2, <4>3
             
             <3>b CASE p = 1 /\ q = 0
+                <4>1 flag[1] = TRUE
+                <4>. QED 
             
             <3>. QED BY <3>2, <3>a, <3>b
             
@@ -470,5 +472,5 @@ THEOREM PExCInduction1 == Inv /\ Next /\ ProcessExitCritical(1) => Inv'
     <1>. QED
 =============================================================================
 \* Modification History
-\* Last modified Mon Jun 02 00:09:44 EDT 2025 by johnnguyen
+\* Last modified Mon Jun 02 00:02:45 EDT 2025 by johnnguyen
 \* Created Fri May 30 09:25:52 EDT 2025 by johnnguyen

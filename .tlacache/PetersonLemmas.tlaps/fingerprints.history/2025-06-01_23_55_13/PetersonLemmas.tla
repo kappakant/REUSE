@@ -305,21 +305,10 @@ THEOREM PEnCInduction0 == Inv /\ ProcessEnterCritical(0) => Inv'
             <3>. QED BY <3>2, <3>a, <3>b
            
         <2>b requestReqs(p, q)'
-            <3>1 SUFFICES ASSUME p#q /\ processState'[p] = "sentRequest"
+            <3>1 SUFFICES ASSUME p#q /\ processState'[p] = "request"
                           PROVE flag'[p] = TRUE
                           BY DEF requestReqs
-            <3>2 (p = 0 /\ q = 1) \/ (p = 1 /\ q = 0) BY <1>1, <3>1 DEF TypeOK
-            
-            <3>a CASE p = 0 /\ q = 1
-                <4>1 processState' = [processState EXCEPT ![p] = "critical"] BY <3>a DEF ProcessEnterCritical
-                
-                <4>2 processState'[p] = "critical" BY <1>1, <3>a DEF TypeOK, ProcessEnterCritical
-                <4>3 processState'[p] = "sentRequest" BY <3>1
-                <4>. QED BY <4>2, <4>3
-            
-            <3>b CASE p = 1 /\ q = 0
-            
-            <3>. QED BY <3>2, <3>a, <3>b
+            <3>. QED
             
         <2>c waitReqs(p, q)'
        
@@ -470,5 +459,5 @@ THEOREM PExCInduction1 == Inv /\ Next /\ ProcessExitCritical(1) => Inv'
     <1>. QED
 =============================================================================
 \* Modification History
-\* Last modified Mon Jun 02 00:09:44 EDT 2025 by johnnguyen
+\* Last modified Sun Jun 01 23:53:36 EDT 2025 by johnnguyen
 \* Created Fri May 30 09:25:52 EDT 2025 by johnnguyen

@@ -2,7 +2,7 @@
 TLC2 Version 2.19 of 08 August 2024 (rev: 5a47802)
 @!@!@ENDMSG 2262 @!@!@
 @!@!@STARTMSG 2187:0 @!@!@
-Running breadth-first search Model-Checking with fp 121 and seed -7483466094469179100 with 4 workers on 8 cores with 1214MB heap and 2730MB offheap memory [pid: 20967] (Mac OS X 10.16 x86_64, AdoptOpenJDK 14.0.1 x86_64, OffHeapDiskFPSet, DiskStateQueue).
+Running breadth-first search Model-Checking with fp 7 and seed -5650946621432731492 with 4 workers on 8 cores with 1214MB heap and 2730MB offheap memory [pid: 20923] (Mac OS X 10.16 x86_64, AdoptOpenJDK 14.0.1 x86_64, OffHeapDiskFPSet, DiskStateQueue).
 @!@!@ENDMSG 2187 @!@!@
 @!@!@STARTMSG 2220:0 @!@!@
 Starting SANY...
@@ -27,7 +27,7 @@ Semantic processing of module MC
 SANY finished.
 @!@!@ENDMSG 2219 @!@!@
 @!@!@STARTMSG 2185:0 @!@!@
-Starting... (2025-06-01 22:05:35)
+Starting... (2025-06-01 22:01:51)
 @!@!@ENDMSG 2185 @!@!@
 @!@!@STARTMSG 2146:1 @!@!@
 The invariant TestSpec is not a state predicate (one with no primes or temporal operators).
@@ -36,5 +36,5 @@ If you believe your TLA+ or PlusCal specification to be correct,
 please check if this bug described in LevelNode.java starting at line 590ff affects you.
 @!@!@ENDMSG 2146 @!@!@
 @!@!@STARTMSG 2186:0 @!@!@
-Finished in 1264ms at (2025-06-01 22:05:35)
+Finished in 1191ms at (2025-06-01 22:01:51)
 @!@!@ENDMSG 2186 @!@!@

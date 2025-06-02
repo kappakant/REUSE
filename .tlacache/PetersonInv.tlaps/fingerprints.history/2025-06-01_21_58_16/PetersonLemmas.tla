@@ -255,76 +255,86 @@ THEOREM PEnCInduction0 == Inv /\ ProcessEnterCritical(0) => Inv'
         <2>. QED BY <2>10, <2>11
     
     <1>3 I'
-        <2>1 SUFFICES ASSUME NEW p \in {0, 1}, NEW q \in {0, 1}
-                      PROVE (critReqs(p, q) /\ requestReqs(p, q) /\ waitReqs(p, q))'
+        <2>1 SUFFICES ASSUME NEW p \in {0, 1}, NEW q \in {0, 1}, (p#q /\ processState[p] = "critical")'
+                      PROVE (flag[q] = FALSE \/ turn = p \/ processState[q] = "sentRequest")'
                       BY DEF I
-        
-        <2>a critReqs(p, q)'
-            <3>1 SUFFICES ASSUME p#q /\ processState'[p] = "critical"
-                          PROVE (flag'[q] = FALSE \/ turn' = p \/ processState'[q] = "sentRequest") /\ flag'[p] = TRUE
-                          BY DEF critReqs
-                          
-            <3>2 (p = 0 /\ q = 1) \/ (p = 1 /\ q = 0) BY <1>1, <3>1 DEF TypeOK        
-            <3>a CASE p = 0 /\ q = 1
-                <4>1 processState[p] = "waiting" BY <3>a DEF ProcessEnterCritical
-                <4>2 flag[p] = TRUE BY <4>1 DEF Inv, I, waitReqs
-                <4>3 flag'[p] = TRUE BY <4>2 DEF ProcessEnterCritical
-                
-                <4>4 flag[1] = FALSE \/ turn = 0 BY DEF ProcessEnterCritical
-                
-                <4>a CASE flag[1] = FALSE
-                    <5>1 flag'[1] = FALSE BY <4>a DEF ProcessEnterCritical
-                    <5>2 flag'[q] = FALSE BY <3>a, <5>1
-                    <5>. QED BY <4>3, <5>2
-                    
-                <4>b CASE turn = 0
-                    <5>1 turn' = 0 BY <4>b DEF ProcessEnterCritical
-                    <5>2 turn' = p BY <3>a, <5>1
-                    <5>. QED BY <4>3, <5>2
-                <4>. QED BY <4>4, <4>a, <4>b
-            
-            <3>b CASE p = 1 /\ q = 0
-                <4>1 processState' = [processState EXCEPT ![0] = "critical"] BY DEF ProcessEnterCritical
-                <4>2 processState[1] = "critical" BY <1>1, <3>1, <4>1, <3>b DEF TypeOK
-                <4>3 processState[0] = "waiting" BY DEF ProcessEnterCritical
-                
-                <4>4 flag[0] = FALSE \/ turn = 1 \/ processState[0] = "sentRequest" BY <3>1, <4>2 DEF Inv, I, critReqs 
-                <4>5 flag[0] = FALSE \/ turn = 1 BY <4>3, <4>4
-                
-                <4>a CASE flag[0] = FALSE
-                    <5>1 flag[0] = TRUE BY <4>3 DEF Inv, I, waitReqs
-                    <5>. QED BY <4>a, <5>1
-                
-                <4>b CASE turn = 1
-                    <5>1 flag[1] = FALSE \/ turn = 0 BY DEF ProcessEnterCritical
-                    <5>2 flag[1] = FALSE BY <4>b, <5>1
-                    <5>3 flag[1] = TRUE BY <4>2 DEF Inv, I, critReqs 
-                    <5>. QED BY <5>2, <5>3
-                    
-                <4>. QED BY <4>5, <4>a, <4>b
-            <3>. QED BY <3>2, <3>a, <3>b
-           
-        <2>b requestReqs(p, q)'
-            <3>1 SUFFICES ASSUME p#q /\ processState'[p] = "sentRequest"
-                          PROVE flag'[p] = TRUE
-                          BY DEF requestReqs
-            <3>2 (p = 0 /\ q = 1) \/ (p = 1 /\ q = 0) BY <1>1, <3>1 DEF TypeOK
-            
-            <3>a CASE p = 0 /\ q = 1
-                <4>1 processState' = [processState EXCEPT ![p] = "critical"] BY <3>a DEF ProcessEnterCritical
-                
-                <4>2 processState'[p] = "critical" BY <1>1, <3>a DEF TypeOK, ProcessEnterCritical
-                <4>3 processState'[p] = "sentRequest" BY <3>1
-                <4>. QED BY <4>2, <4>3
-            
-            <3>b CASE p = 1 /\ q = 0
-            
-            <3>. QED BY <3>2, <3>a, <3>b
-            
-        <2>c waitReqs(p, q)'
-       
-        <2>. QED BY <2>1, <2>a, <2>b, <2>c  DEF Inv, I            
+                                               
+        <2>2 SUFFICES ASSUME ~((flag[q] = FALSE \/ turn = p \/ processState[q] = "sentRequest")')
+                      PROVE FALSE
+                      OBVIOUS
                       
+        <2>3 flag'[q] # FALSE /\ turn' # p /\ processState'[q] # "sentRequest" BY <2>2
+        <2>4 flag'[q] = TRUE BY <1>1, <2>3 DEF TypeOK
+        <2>5 p # q BY <2>1
+        <2>6 turn' = q BY <1>1, <2>3, <2>5 DEF TypeOK
+        <2>7 processState'[q] \in {"idle", "waiting", "critical"} BY <1>1, <2>3 DEF TypeOK
+        <2>8 processState'[q] = "idle" \/ processState'[q] = "waiting" \/ processState'[q] = "critical" BY <2>7
+        
+        <2>a CASE processState'[q] = "idle"
+            <3>1 q = 0 \/ q = 1 BY DEF Inv, TypeOK
+            <3>a CASE q = 0
+                <4>1 processState' = [processState EXCEPT ![0] = "critical"] BY DEF ProcessEnterCritical
+                <4>2 processState' = [processState EXCEPT ![q] = "critical"] BY <3>a, <4>1
+                <4>3 q \in {0, 1} BY <3>1
+                <4>4 processState'[q] = "critical" BY <1>1, <4>2, <4>3 DEF TypeOK
+                <4>. QED BY <2>a, <4>4
+            
+            <3>b CASE q = 1
+                <4>1 flag'[1] = FALSE \/ turn = 0 BY DEF ProcessEnterCritical
+                <4>a CASE flag'[1] = FALSE
+                    <5>. QED BY <2>4, <3>b, <4>a
+                <4>b CASE turn = 0
+                    <5>1. turn' = 0 BY <4>b DEF ProcessEnterCritical
+                    <5>2. turn' = 1 BY <2>6, <3>b
+                    <5>. QED BY <5>1, <5>2
+               
+                <4>. QED BY <4>1, <4>a, <4>b
+            <3>. QED BY <3>1, <3>a, <3>b
+        
+        <2>b CASE processState'[q] = "waiting"
+            <3>1 q = 0 \/ q = 1 BY DEF Inv, TypeOK
+            <3>a CASE q = 0
+                <4>1 processState' = [processState EXCEPT ![0] = "critical"] BY DEF ProcessEnterCritical
+                <4>2 processState' = [processState EXCEPT ![q] = "critical"] BY <3>a, <4>1
+                <4>3 q \in {0, 1} BY <3>1
+                <4>4 processState'[q] = "critical" BY <1>1, <4>2, <4>3 DEF TypeOK
+                <4>. QED BY <2>b, <4>4
+                
+                
+            <3>b CASE q = 1
+                <4>1 flag'[1] = FALSE \/ turn = 0 BY DEF ProcessEnterCritical
+                <4>a CASE flag'[1] = FALSE
+                    <5>. QED BY <2>4, <3>b, <4>a
+                <4>b CASE turn = 0
+                    <5>1. turn' = 0 BY <4>b DEF ProcessEnterCritical
+                    <5>2. turn' = 1 BY <2>6, <3>b
+                    <5>. QED BY <5>1, <5>2
+               
+                <4>. QED BY <4>1, <4>a, <4>b
+                
+            <3>. QED BY <3>a, <3>b
+        
+        <2>c CASE processState'[q] = "critical"
+            <3>1 q = 0 \/ q = 1 BY DEF Inv, TypeOK
+            <3>a CASE q = 0
+                <4>1 p = 1 BY <1>1, <2>5, <3>a DEF TypeOK
+                <4>2 processState'[p] = "critical" BY <2>1
+                <4>3 processState'[q] = "critical" BY <2>c
+                <4>5 processState'[0] = "critical" BY <3>a, <4>3
+                <4>6 processState'[1] = "critical" BY <4>1, <4>2
+                <4>. QED BY <1>2, <4>5, <4>6 DEF MutualExclusion
+            
+            <3>b CASE q = 1
+                <4>1 p = 0 BY <1>1, <2>5, <3>b DEF TypeOK
+                <4>2 processState'[p] = "critical" BY <2>1
+                <4>3 processState'[q] = "critical" BY <2>c
+                <4>5 processState'[0] = "critical" BY <4>1, <4>2
+                <4>6 processState'[1] = "critical" BY <3>b, <4>3
+                <4>. QED BY <1>2, <4>5, <4>6 DEF MutualExclusion
+            
+            <3>. QED BY <3>a, <3>b
+        <2>. QED BY <2>7, <2>a, <2>b, <2>c DEF I
+    
     
     <1>. QED BY <1>1, <1>2, <1>3 DEF Inv
     
@@ -389,7 +399,7 @@ THEOREM PExCInduction0 == Inv /\ Next /\ ProcessExitCritical(0) => Inv'
         
         <2>b requestReqs(p, q)'
             <3>1 SUFFICES ASSUME processState'[p] = "sentRequest", p#q
-                          PROVE flag'[p] = TRUE
+                          PROVE FALSE
                           BY DEF requestReqs
             <3>2 (p = 0 /\ q = 1) \/ (p = 1 /\ q = 0) BY <1>1, <3>1 DEF TypeOK
             
@@ -401,45 +411,17 @@ THEOREM PExCInduction0 == Inv /\ Next /\ ProcessExitCritical(0) => Inv'
                 <4>. QED BY <4>2, <4>3
             
             <3>b CASE p = 1 /\ q = 0
-                <4>1 flag' = [flag EXCEPT ![0] = FALSE] BY DEF ProcessExitCritical
-                <4>2 processState' = [processState EXCEPT ![0] = "idle"] BY DEF ProcessExitCritical
-                <4>3 processState'[1] = "sentRequest" BY <3>1, <3>b
-                <4>4 processState[1] = "sentRequest" BY <1>1, <4>2, <4>3 DEF TypeOK
-                <4>5 flag[1] = TRUE BY <4>4 DEF Inv, I, requestReqs
-                
-                <4>6 flag' = [flag EXCEPT ![0] = FALSE] BY DEF ProcessExitCritical
-                <4>7 flag'[1] = TRUE BY <1>1, <4>5, <4>6 DEF TypeOK
+                <4>1 processState[0] = "critical" BY DEF ProcessExitCritical
+                <4>2 (0#1 /\ processState[0] = "critical") => /\ flag[1] = FALSE \/ turn = 0 \/ processState[1] = "sentRequest"
+                                                              /\ flag[0] = TRUE BY DEF Inv, I, critReqs
+                <4>3 flag[1] = FALSE \/ turn = 0 \/ processState[1] = "sentRequest" BY <4>1, <4>2
+                <4>4 flag[0] = TRUE BY <4>1, <4>2
                                      
-                <4>. QED BY <3>b, <4>7
+                <4>. QED 
             
             <3>. QED BY <3>2, <3>a, <3>b
         
         <2>c waitReqs(p, q)'
-            <3>1 SUFFICES ASSUME processState'[p] = "waiting", p#q
-                          PROVE flag'[p] = TRUE
-                          BY DEF waitReqs
-            <3>2 (p = 0 /\ q = 1) \/ (p = 1 /\ q = 0) BY <1>1, <3>1 DEF TypeOK
-            
-            <3>a CASE p = 0 /\ q = 1
-                <4>1 processState' = [processState EXCEPT ![p] = "idle"] BY <3>a DEF ProcessExitCritical
-                
-                <4>2 processState'[p] = "idle" BY <1>1, <3>a DEF TypeOK, ProcessExitCritical
-                <4>3 processState'[p] = "waiting" BY <3>1
-                <4>. QED BY <4>2, <4>3
-            
-            <3>b CASE p = 1 /\ q = 0
-                <4>1 flag' = [flag EXCEPT ![0] = FALSE] BY DEF ProcessExitCritical
-                <4>2 processState' = [processState EXCEPT ![0] = "idle"] BY DEF ProcessExitCritical
-                <4>3 processState'[1] = "waiting" BY <3>1, <3>b
-                <4>4 processState[1] = "waiting" BY <1>1, <4>2, <4>3 DEF TypeOK
-                <4>5 flag[1] = TRUE BY <4>4 DEF Inv, I, waitReqs
-                
-                <4>6 flag' = [flag EXCEPT ![0] = FALSE] BY DEF ProcessExitCritical
-                <4>7 flag'[1] = TRUE BY <1>1, <4>5, <4>6 DEF TypeOK
-                                     
-                <4>. QED BY <3>b, <4>7
-            
-            <3>. QED BY <3>2, <3>a, <3>b
 
         <2>. QED BY <2>1, <2>a, <2>b, <2>c DEF Inv, I
         
@@ -470,5 +452,5 @@ THEOREM PExCInduction1 == Inv /\ Next /\ ProcessExitCritical(1) => Inv'
     <1>. QED
 =============================================================================
 \* Modification History
-\* Last modified Mon Jun 02 00:09:44 EDT 2025 by johnnguyen
+\* Last modified Sun Jun 01 21:58:10 EDT 2025 by johnnguyen
 \* Created Fri May 30 09:25:52 EDT 2025 by johnnguyen

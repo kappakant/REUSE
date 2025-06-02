@@ -188,6 +188,8 @@ requestReqs(p, q) ==
 waitReqs(p, q) ==
     (p#q /\ processState[p] = "waiting") => flag[p] = TRUE
 
+\* requestReqs and waitReqs necessary for mutualexclusion' in critReqs,
+\* but now I have to write proofs for requestReqs and waitReqs lol
 I == \A p, q \in {0, 1}: 
     /\ critReqs(p, q)                                                    
     /\ requestReqs(p, q)
@@ -202,7 +204,15 @@ IndSpec == Inv /\ [][Next]_vars
 
 MutExSpec == MutualExclusion /\ [][Next]_vars
 
+TestSpec ==
+    /\ TypeOK
+    /\ Inv
+    /\ [][Next]_vars
+
+InvImpMutEx ==
+    Inv => MutualExclusion
+
 ==================================================
 \* Modification History
-\* Last modified Sun Jun 01 17:44:10 EDT 2025 by johnnguyen
+\* Last modified Sun Jun 01 22:01:08 EDT 2025 by johnnguyen
 \* Created Wed May 28 01:17:56 EDT 2025 by johnnguyen
