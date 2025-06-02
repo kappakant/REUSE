@@ -2,11 +2,7 @@
 EXTENDS Peterson, PetersonLemmas
 
 THEOREM InitProperty == Init => Inv
-    BY DEF Init, Inv, I, 
-           Process0, Process1, 
-           ProcessRequestFlag, ProcessBeginWaiting, ProcessEnterCritical, ProcessExitCritical, 
-           critReqs, requestReqs, waitReqs,
-           TypeOK, MutualExclusion
+    BY DEF Init, Inv, Process0, Process1, ProcessRequestFlag, ProcessBeginWaiting, ProcessEnterCritical, ProcessExitCritical, TypeOK, MutualExclusion
 
  THEOREM SafetyProperty == Inv => MutualExclusion
     BY DEF Inv, MutualExclusion
@@ -56,9 +52,8 @@ THEOREM InductProperty == Inv /\ Next => Inv'
 
 <1>. QED BY <1>1, <1>a, <1>b
 
-IndSpec == Inv /\ [][Next]_vars
 =============================================================================
 \* Modification History
-\* Last modified Mon Jun 02 10:49:14 EDT 2025 by johnnguyen
+\* Last modified Mon Jun 02 10:45:24 EDT 2025 by johnnguyen
 \* Created Fri May 30 09:25:17 EDT 2025 by johnnguyen
 

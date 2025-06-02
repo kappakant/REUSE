@@ -56,9 +56,8 @@ THEOREM InductProperty == Inv /\ Next => Inv'
 
 <1>. QED BY <1>1, <1>a, <1>b
 
-IndSpec == Inv /\ [][Next]_vars
 =============================================================================
 \* Modification History
-\* Last modified Mon Jun 02 10:49:14 EDT 2025 by johnnguyen
+\* Last modified Mon Jun 02 10:47:55 EDT 2025 by johnnguyen
 \* Created Fri May 30 09:25:17 EDT 2025 by johnnguyen
 
