@@ -16,6 +16,16 @@
 	</natures>
 	<linkedResources>
 		<link>
+			<name>IndInv.tla</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/IndInv.tla</locationURI>
+		</link>
+		<link>
+			<name>InvLemmas.tla</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/InvLemmas.tla</locationURI>
+		</link>
+		<link>
 			<name>ToyTwoCommit.tla</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/ToyTwoCommit.tla</locationURI>

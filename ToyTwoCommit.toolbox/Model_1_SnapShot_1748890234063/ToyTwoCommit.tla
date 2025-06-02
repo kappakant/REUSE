@@ -59,11 +59,8 @@ Next ==
 
 Consistent == \A r1, r2 \in RMs: ~(rmState[r1] = "abort" /\ rmState[r2] = "commit")
 
-\* if abort then not commit /\
-\* if commit then not abort
-
 I == \A r1, r2 \in RMs: 
-    (r1#r2 /\ rmState[r1] = "commit") => tmPrepared = RMs
+    (r1#r2 /\ rmState[r1] = "abort") => tmPrepared # RMs
 
 CandInv == 
     /\ I
@@ -78,5 +75,5 @@ TestInd == CandInv /\ Next => CandInv'
 TestInit == Init => CandInv
 =============================================================================
 \* Modification History
-\* Last modified Mon Jun 02 14:55:42 EDT 2025 by johnnguyen
+\* Last modified Mon Jun 02 14:44:20 EDT 2025 by johnnguyen
 \* Created Sat May 31 21:17:41 EDT 2025 by johnnguyen

@@ -199,8 +199,6 @@ I == \A p, q \in {0, 1}:
 Inv == /\ TypeOK
        /\ I
        /\ MutualExclusion
-       
-IndSpec == Inv /\ [][Next]_vars
 
 MutExSpec == MutualExclusion /\ [][Next]_vars
 
@@ -214,5 +212,5 @@ InvImpMutEx ==
 
 ==================================================
 \* Modification History
-\* Last modified Sun Jun 01 22:01:08 EDT 2025 by johnnguyen
+\* Last modified Mon Jun 02 10:49:23 EDT 2025 by johnnguyen
 \* Created Wed May 28 01:17:56 EDT 2025 by johnnguyen

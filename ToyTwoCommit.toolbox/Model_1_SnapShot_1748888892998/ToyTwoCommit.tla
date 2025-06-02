@@ -59,11 +59,8 @@ Next ==
 
 Consistent == \A r1, r2 \in RMs: ~(rmState[r1] = "abort" /\ rmState[r2] = "commit")
 
-\* if abort then not commit /\
-\* if commit then not abort
 
-I == \A r1, r2 \in RMs: 
-    (r1#r2 /\ rmState[r1] = "commit") => tmPrepared = RMs
+I == \A r1, r2 \in RMs: (r1#r2 /\ rmState[r1] = "commit") => tmPrepared = RMs
 
 CandInv == 
     /\ I
@@ -74,9 +71,7 @@ TestIndSpec == TypeOK /\ CandInv /\ [][Next]_vars
 TestSafety == CandInv => Consistent
 
 TestInd == CandInv /\ Next => CandInv'
-
-TestInit == Init => CandInv
 =============================================================================
 \* Modification History
-\* Last modified Mon Jun 02 14:55:42 EDT 2025 by johnnguyen
+\* Last modified Mon Jun 02 14:22:30 EDT 2025 by johnnguyen
 \* Created Sat May 31 21:17:41 EDT 2025 by johnnguyen
