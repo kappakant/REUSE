@@ -69,7 +69,6 @@ Consistent == \A r1, r2 \in RMs: ~(rmState[r1] = "abort" /\ rmState[r2] = "commi
 \* I == \A r1, r2 \in RMs: 
 \*    (r1#r2 /\ rmState[r1] = "commit") => tmPrepared = RMs
  ***************************************************************************)
- 
  \* passes tests, but do I really trust that it's that easy?
 I == 
     /\ \A rm \in tmPrepared:
@@ -111,5 +110,5 @@ Inv ==
     
 =============================================================================
 \* Modification History
-\* Last modified Tue Jun 03 14:57:29 EDT 2025 by johnnguyen
+\* Last modified Tue Jun 03 00:30:59 EDT 2025 by johnnguyen
 \* Created Sat May 31 21:17:41 EDT 2025 by johnnguyen

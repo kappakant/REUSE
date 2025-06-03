@@ -111,11 +111,15 @@ THEOREM InductiveProperty == Inv /\ Next => Inv'
                 
         \* we'll use the ol' 1-2 punch. Assume arbitrary rm in RMs, prove second part.
         \* Then, assume arbitrary tm in tmPrepared. prove first part
-        <2>2 SUFFICES ASSUME NEW rm \in RMs, NEW tm \in tmPrepared
-                      PROVE tmPreparedInv' /\ RMsInv'
-                      BY DEF tmPreparedInv, RMsInv, I
-                                   
-       
+        
+        <2>2 RMsInv' /\ tmPreparedInv'
+            <3> SUFFICES ASSUME NEW rm \in RMs, NEW tm \in tmPrepared
+                         PROVE RMsInv' /\ tmPreparedInv'
+                         OBVIOUS
+            <3>a RMsInv'
+            <3>b tmPreparedInv'
+            <3>. QED
+
         <2>. QED
     
     <1>. QED BY <1>a, <1>b
@@ -126,5 +130,5 @@ THEOREM InductiveProperty == Inv /\ Next => Inv'
 
 =============================================================================
 \* Modification History
-\* Last modified Tue Jun 03 14:59:22 EDT 2025 by johnnguyen
+\* Last modified Tue Jun 03 14:48:47 EDT 2025 by johnnguyen
 \* Created Mon Jun 02 13:14:02 EDT 2025 by johnnguyen

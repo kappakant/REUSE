@@ -112,8 +112,12 @@ THEOREM InductiveProperty == Inv /\ Next => Inv'
         \* we'll use the ol' 1-2 punch. Assume arbitrary rm in RMs, prove second part.
         \* Then, assume arbitrary tm in tmPrepared. prove first part
         <2>2 SUFFICES ASSUME NEW rm \in RMs, NEW tm \in tmPrepared
-                      PROVE tmPreparedInv' /\ RMsInv'
-                      BY DEF tmPreparedInv, RMsInv, I
+                      PROVE /\ rmState'[rm] = "commit" => tmPrepared' = RMs
+                            /\ tmState' = "init" => rmState'[tm] = "prepared"
+                            /\ tmState' = "abort"  => rmState'[tm] = "prepared" \/ rmState'[tm] = "abort"
+                            /\ tmState' = "commit" => /\ rmState'[tm] = "prepared" \/ rmState'[tm] = "commit"
+                                                      /\ tmPrepared' = RMs 
+                      BY DEF I
                                    
        
         <2>. QED
@@ -126,5 +130,5 @@ THEOREM InductiveProperty == Inv /\ Next => Inv'
 
 =============================================================================
 \* Modification History
-\* Last modified Tue Jun 03 14:59:22 EDT 2025 by johnnguyen
+\* Last modified Tue Jun 03 14:55:52 EDT 2025 by johnnguyen
 \* Created Mon Jun 02 13:14:02 EDT 2025 by johnnguyen
