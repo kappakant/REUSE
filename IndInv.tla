@@ -109,8 +109,6 @@ THEOREM InductiveProperty == Inv /\ Next => Inv'
              /\ \A rm \in RMs:
                 rmState[rm] = "commit" => tmPrepared = RMs BY <1>1 DEF Inv, I
                 
-        \* we'll use the ol' 1-2 punch. Assume arbitrary rm in RMs, prove second part.
-        \* Then, assume arbitrary tm in tmPrepared. prove first part
         <2>2 SUFFICES ASSUME NEW rm \in RMs, NEW tm \in tmPrepared
                       PROVE tmPreparedInv' /\ RMsInv'
                       BY DEF tmPreparedInv, RMsInv, I
