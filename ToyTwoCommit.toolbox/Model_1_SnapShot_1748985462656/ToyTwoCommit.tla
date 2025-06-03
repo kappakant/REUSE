@@ -15,7 +15,7 @@ Init ==
 TypeOK ==
     /\ rmState \in [RMs -> {"working", "prepared", "commit", "abort"}]
     /\ tmState \in {"init", "commit", "abort"}
-    /\ tmPrepared \subseteq RMs \* Weird, but documented quirk of TLC is that the more natural
+    /\ tmPrepared \in SUBSET RMs \* Weird, but documented quirk of TLC is that the more natural
                                  \* tmPrepared \subseteq RMs leads to an "undefined operator" error.
                                  \* NVM I still get an error.
     
@@ -91,7 +91,8 @@ RMsInv ==
     \A rm \in RMs:
         rmState[rm] = "commit" => tmPrepared = RMs
     
-CandInv ==  I
+CandInv == 
+    /\ I
 
 TestSpec == TypeOK /\ Init /\ [][Next]_vars
 
@@ -109,5 +110,5 @@ Inv ==
     
 =============================================================================
 \* Modification History
-\* Last modified Tue Jun 03 17:20:59 EDT 2025 by johnnguyen
+\* Last modified Tue Jun 03 17:17:36 EDT 2025 by johnnguyen
 \* Created Sat May 31 21:17:41 EDT 2025 by johnnguyen

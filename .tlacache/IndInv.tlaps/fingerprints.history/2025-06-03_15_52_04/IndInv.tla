@@ -45,16 +45,14 @@ THEOREM InductiveProperty == Inv /\ Next => Inv'
                   PROVE /\ TypeOK'
                         /\ I'
                   BY DEF Inv, I
-                  
-    <1>2 \E rm \in RMs: \/ Prepare(rm) \/ Commit(rm) \/ Abort(rm) \/ SilentAbort(rm) BY <1>1 DEF Next         
-                                
+    
     <1>a TypeOK'
         <2>1 /\ rmState \in [RMs -> {"working", "prepared", "commit", "abort"}]
              /\ tmState \in {"init", "commit", "abort"}
              /\ tmPrepared \in SUBSET RMs BY <1>1 DEF Inv, TypeOK
         <2>2 PICK rm \in RMs: Prepare(rm) \/ Commit(rm) \/ Abort(rm) \/ SilentAbort(rm) BY <1>1 DEF Next
         
-         
+        
         <2>a CASE Prepare(rm)
             <3>1 rmState' = [rmState EXCEPT ![rm] = "prepared"] BY <2>a DEF Prepare
             <3>2 rmState' \in [RMs -> {"working", "prepared", "commit", "abort"}] BY <2>1, <3>1
@@ -103,8 +101,14 @@ THEOREM InductiveProperty == Inv /\ Next => Inv'
         <2>. QED BY <2>2, <2>a, <2>b, <2>c, <2>d
     
     <1>b I'
+        <2> ASSUME NEW rm \in RMs, NEW tm \in tmPrepared
+                   PROVE RMsInv' /\ tmPreparedInv'
+                   BY DEF I, RMsInv, tmPreparedInv
+                
+        <2> TAKE rm \in RMs
+        <2> TAKE tm \in tmPrepared
+       
         <2>. QED
-
     
     <1>. QED BY <1>a, <1>b
 
@@ -114,5 +118,5 @@ THEOREM InductiveProperty == Inv /\ Next => Inv'
 
 =============================================================================
 \* Modification History
-\* Last modified Tue Jun 03 16:58:06 EDT 2025 by johnnguyen
+\* Last modified Tue Jun 03 15:52:01 EDT 2025 by johnnguyen
 \* Created Mon Jun 02 13:14:02 EDT 2025 by johnnguyen

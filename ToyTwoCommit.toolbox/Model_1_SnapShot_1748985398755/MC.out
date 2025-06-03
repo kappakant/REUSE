@@ -2,7 +2,7 @@
 TLC2 Version 2.19 of 08 August 2024 (rev: 5a47802)
 @!@!@ENDMSG 2262 @!@!@
 @!@!@STARTMSG 2187:0 @!@!@
-Running breadth-first search Model-Checking with fp 116 and seed -1912479689249837412 with 4 workers on 8 cores with 1214MB heap and 2730MB offheap memory [pid: 63255] (Mac OS X 10.16 x86_64, AdoptOpenJDK 14.0.1 x86_64, OffHeapDiskFPSet, DiskStateQueue).
+Running breadth-first search Model-Checking with fp 16 and seed 5983289024667676710 with 4 workers on 8 cores with 1214MB heap and 2730MB offheap memory [pid: 63185] (Mac OS X 10.16 x86_64, AdoptOpenJDK 14.0.1 x86_64, OffHeapDiskFPSet, DiskStateQueue).
 @!@!@ENDMSG 2187 @!@!@
 @!@!@STARTMSG 2220:0 @!@!@
 Starting SANY...
@@ -25,7 +25,7 @@ Semantic processing of module MC
 SANY finished.
 @!@!@ENDMSG 2219 @!@!@
 @!@!@STARTMSG 2185:0 @!@!@
-Starting... (2025-06-03 17:21:03)
+Starting... (2025-06-03 17:16:36)
 @!@!@ENDMSG 2185 @!@!@
 @!@!@STARTMSG 2189:0 @!@!@
 Computing initial states...
@@ -33,88 +33,89 @@ Computing initial states...
 @!@!@STARTMSG 1000:1 @!@!@
 @!@!@STARTMSG 2280:0 @!@!@
 In evaluation, the identifier tmPrepared is either undefined or not an operator.
-line 75, col 18 to line 75, col 27 of module ToyTwoCommit
+line 74, col 18 to line 74, col 27 of module ToyTwoCommit
 @!@!@ENDMSG 2280 @!@!@
 @!@!@ENDMSG 1000 @!@!@
 @!@!@STARTMSG 2103:1 @!@!@
 The error occurred when TLC was evaluating the nested
 expressions at the following positions:
-0. Line 94, column 13 to line 94, column 13 in ToyTwoCommit
-1. Line 75, column 5 to line 81, column 50 in ToyTwoCommit
-2. Line 75, column 8 to line 79, column 52 in ToyTwoCommit
-3. Line 75, column 18 to line 75, column 27 in ToyTwoCommit
+0. Line 94, column 5 to line 95, column 13 in ToyTwoCommit
+1. Line 94, column 8 to line 94, column 8 in ToyTwoCommit
+2. Line 74, column 5 to line 80, column 50 in ToyTwoCommit
+3. Line 74, column 8 to line 78, column 52 in ToyTwoCommit
+4. Line 74, column 18 to line 74, column 27 in ToyTwoCommit
 
 
 @!@!@ENDMSG 2103 @!@!@
 @!@!@STARTMSG 2201:0 @!@!@
-The coverage statistics at 2025-06-03 17:21:04
+The coverage statistics at 2025-06-03 17:16:37
 @!@!@ENDMSG 2201 @!@!@
 @!@!@STARTMSG 2773:0 @!@!@
-<CandInv line 94, col 1 to line 94, col 7 of module ToyTwoCommit>: 0:0
+<CandInv line 93, col 1 to line 93, col 7 of module ToyTwoCommit>: 0:0
 @!@!@ENDMSG 2773 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  line 94, col 13 to line 94, col 13 of module ToyTwoCommit: 2
+  line 94, col 5 to line 95, col 13 of module ToyTwoCommit: 2
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2772:0 @!@!@
-<Prepare line 22, col 1 to line 22, col 11 of module ToyTwoCommit>: 0:0
+<Prepare line 21, col 1 to line 21, col 11 of module ToyTwoCommit>: 0:0
 @!@!@ENDMSG 2772 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  line 25, col 8 to line 25, col 53 of module ToyTwoCommit: 0
+  line 24, col 8 to line 24, col 53 of module ToyTwoCommit: 0
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  line 26, col 8 to line 26, col 41 of module ToyTwoCommit: 0
+  line 25, col 8 to line 25, col 41 of module ToyTwoCommit: 0
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  line 27, col 8 to line 27, col 25 of module ToyTwoCommit: 0
+  line 26, col 8 to line 26, col 25 of module ToyTwoCommit: 0
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2772:0 @!@!@
-<Commit line 29, col 1 to line 29, col 10 of module ToyTwoCommit>: 0:0
+<Commit line 28, col 1 to line 28, col 10 of module ToyTwoCommit>: 0:0
 @!@!@ENDMSG 2772 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  line 32, col 8 to line 32, col 51 of module ToyTwoCommit: 0
+  line 31, col 8 to line 31, col 51 of module ToyTwoCommit: 0
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  line 33, col 8 to line 33, col 26 of module ToyTwoCommit: 0
+  line 32, col 8 to line 32, col 26 of module ToyTwoCommit: 0
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  line 34, col 8 to line 34, col 28 of module ToyTwoCommit: 0
+  line 33, col 8 to line 33, col 28 of module ToyTwoCommit: 0
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2772:0 @!@!@
-<Abort line 36, col 1 to line 36, col 9 of module ToyTwoCommit>: 0:0
+<Abort line 35, col 1 to line 35, col 9 of module ToyTwoCommit>: 0:0
 @!@!@ENDMSG 2772 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  line 38, col 8 to line 38, col 50 of module ToyTwoCommit: 0
+  line 37, col 8 to line 37, col 50 of module ToyTwoCommit: 0
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  line 39, col 8 to line 39, col 25 of module ToyTwoCommit: 0
+  line 38, col 8 to line 38, col 25 of module ToyTwoCommit: 0
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  line 40, col 8 to line 40, col 28 of module ToyTwoCommit: 0
+  line 39, col 8 to line 39, col 28 of module ToyTwoCommit: 0
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2772:0 @!@!@
-<SilentAbort line 42, col 1 to line 42, col 15 of module ToyTwoCommit>: 0:0
+<SilentAbort line 41, col 1 to line 41, col 15 of module ToyTwoCommit>: 0:0
 @!@!@ENDMSG 2772 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  line 44, col 8 to line 44, col 50 of module ToyTwoCommit: 0
+  line 43, col 8 to line 43, col 50 of module ToyTwoCommit: 0
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  line 45, col 8 to line 45, col 28 of module ToyTwoCommit: 0
+  line 44, col 8 to line 44, col 28 of module ToyTwoCommit: 0
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  line 45, col 33 to line 45, col 50 of module ToyTwoCommit: 0
+  line 44, col 33 to line 44, col 50 of module ToyTwoCommit: 0
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2774:0 @!@!@
-<CandInv line 94, col 1 to line 94, col 7 of module ToyTwoCommit>
+<CandInv line 93, col 1 to line 93, col 7 of module ToyTwoCommit>
 @!@!@ENDMSG 2774 @!@!@
 @!@!@STARTMSG 2202:0 @!@!@
 End of statistics.
 @!@!@ENDMSG 2202 @!@!@
 @!@!@STARTMSG 2200:0 @!@!@
-Progress(1) at 2025-06-03 17:21:04: 0 states generated (0 s/min), 0 distinct states found (0 ds/min), 0 states left on queue.
+Progress(1) at 2025-06-03 17:16:37: 0 states generated (0 s/min), 0 distinct states found (0 ds/min), 0 states left on queue.
 @!@!@ENDMSG 2200 @!@!@
 @!@!@STARTMSG 2199:0 @!@!@
 0 states generated, 0 distinct states found, 0 states left on queue.
 @!@!@ENDMSG 2199 @!@!@
 @!@!@STARTMSG 2186:0 @!@!@
-Finished in 2017ms at (2025-06-03 17:21:04)
+Finished in 2065ms at (2025-06-03 17:16:37)
 @!@!@ENDMSG 2186 @!@!@

@@ -54,7 +54,7 @@ THEOREM InductiveProperty == Inv /\ Next => Inv'
              /\ tmPrepared \in SUBSET RMs BY <1>1 DEF Inv, TypeOK
         <2>2 PICK rm \in RMs: Prepare(rm) \/ Commit(rm) \/ Abort(rm) \/ SilentAbort(rm) BY <1>1 DEF Next
         
-         
+        
         <2>a CASE Prepare(rm)
             <3>1 rmState' = [rmState EXCEPT ![rm] = "prepared"] BY <2>a DEF Prepare
             <3>2 rmState' \in [RMs -> {"working", "prepared", "commit", "abort"}] BY <2>1, <3>1
@@ -114,5 +114,5 @@ THEOREM InductiveProperty == Inv /\ Next => Inv'
 
 =============================================================================
 \* Modification History
-\* Last modified Tue Jun 03 16:58:06 EDT 2025 by johnnguyen
+\* Last modified Tue Jun 03 16:18:17 EDT 2025 by johnnguyen
 \* Created Mon Jun 02 13:14:02 EDT 2025 by johnnguyen

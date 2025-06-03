@@ -15,8 +15,9 @@ Init ==
 TypeOK ==
     /\ rmState \in [RMs -> {"working", "prepared", "commit", "abort"}]
     /\ tmState \in {"init", "commit", "abort"}
-    /\ tmPrepared \in SUBSET RMs \* Weird, but documented quirk of TLC is that the more natural
+    /\ tmPrepared \subseteq RMs \* Weird, but documented quirk of TLC is that the more natural
                                  \* tmPrepared \subseteq RMs leads to an "undefined operator" error.
+                                 \* NVM I still get an error.
     
 Prepare(rm) ==
     /\ rmState[rm] = "working" 
@@ -69,11 +70,10 @@ Consistent == \A r1, r2 \in RMs: ~(rmState[r1] = "abort" /\ rmState[r2] = "commi
 \* I == \A r1, r2 \in RMs: 
 \*    (r1#r2 /\ rmState[r1] = "commit") => tmPrepared = RMs
  ***************************************************************************)
- 
  \* passes tests, but do I really trust that it's that easy?
 I == 
     /\ \A rm \in tmPrepared:
-        /\ tmState = "init"   => rmState[rm] = "prepared"
+        /\ tmState = "init"   => rmState[rm] = "prepared" \/ rmState[rm] = "commit"
         /\ tmState = "abort"  => rmState[rm] = "prepared" \/ rmState[rm] = "abort"
         /\ tmState = "commit" => /\ rmState[rm] = "prepared" \/ rmState[rm] = "commit"
                                  /\ tmPrepared = RMs 
@@ -91,13 +91,11 @@ RMsInv ==
     \A rm \in RMs:
         rmState[rm] = "commit" => tmPrepared = RMs
     
-CandInv == 
-    /\ I
-    /\ TypeOK
+CandInv ==  I
 
 TestSpec == TypeOK /\ Init /\ [][Next]_vars
 
-TestIndSpec == TypeOK /\ CandInv /\ [][Next]_vars   
+TestIndSpec == CandInv /\ [][Next]_vars   
  
 TestSafety == CandInv => Consistent
 
@@ -111,5 +109,5 @@ Inv ==
     
 =============================================================================
 \* Modification History
-\* Last modified Tue Jun 03 14:57:29 EDT 2025 by johnnguyen
+\* Last modified Tue Jun 03 17:22:30 EDT 2025 by johnnguyen
 \* Created Sat May 31 21:17:41 EDT 2025 by johnnguyen

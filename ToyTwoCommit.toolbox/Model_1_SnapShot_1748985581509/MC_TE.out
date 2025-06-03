@@ -2,7 +2,7 @@
 TLC2 Version 2.19 of 08 August 2024 (rev: 5a47802)
 @!@!@ENDMSG 2262 @!@!@
 @!@!@STARTMSG 2187:0 @!@!@
-Running breadth-first search Model-Checking with fp 116 and seed -1912479689249837412 with 4 workers on 8 cores with 1214MB heap and 2730MB offheap memory [pid: 63255] (Mac OS X 10.16 x86_64, AdoptOpenJDK 14.0.1 x86_64, OffHeapDiskFPSet, DiskStateQueue).
+Running breadth-first search Model-Checking with fp 82 and seed -5088491565765622750 with 4 workers on 8 cores with 1214MB heap and 2730MB offheap memory [pid: 63233] (Mac OS X 10.16 x86_64, AdoptOpenJDK 14.0.1 x86_64, OffHeapDiskFPSet, DiskStateQueue).
 @!@!@ENDMSG 2187 @!@!@
 @!@!@STARTMSG 2220:0 @!@!@
 Starting SANY...
@@ -25,7 +25,7 @@ Semantic processing of module MC
 SANY finished.
 @!@!@ENDMSG 2219 @!@!@
 @!@!@STARTMSG 2185:0 @!@!@
-Starting... (2025-06-03 17:21:03)
+Starting... (2025-06-03 17:19:39)
 @!@!@ENDMSG 2185 @!@!@
 @!@!@STARTMSG 2189:0 @!@!@
 Computing initial states...
@@ -39,21 +39,22 @@ line 75, col 18 to line 75, col 27 of module ToyTwoCommit
 @!@!@STARTMSG 2103:1 @!@!@
 The error occurred when TLC was evaluating the nested
 expressions at the following positions:
-0. Line 94, column 13 to line 94, column 13 in ToyTwoCommit
-1. Line 75, column 5 to line 81, column 50 in ToyTwoCommit
-2. Line 75, column 8 to line 79, column 52 in ToyTwoCommit
-3. Line 75, column 18 to line 75, column 27 in ToyTwoCommit
+0. Line 95, column 5 to line 95, column 8 in ToyTwoCommit
+1. Line 95, column 8 to line 95, column 8 in ToyTwoCommit
+2. Line 75, column 5 to line 81, column 50 in ToyTwoCommit
+3. Line 75, column 8 to line 79, column 52 in ToyTwoCommit
+4. Line 75, column 18 to line 75, column 27 in ToyTwoCommit
 
 
 @!@!@ENDMSG 2103 @!@!@
 @!@!@STARTMSG 2201:0 @!@!@
-The coverage statistics at 2025-06-03 17:21:04
+The coverage statistics at 2025-06-03 17:19:40
 @!@!@ENDMSG 2201 @!@!@
 @!@!@STARTMSG 2773:0 @!@!@
 <CandInv line 94, col 1 to line 94, col 7 of module ToyTwoCommit>: 0:0
 @!@!@ENDMSG 2773 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  line 94, col 13 to line 94, col 13 of module ToyTwoCommit: 2
+  line 95, col 5 to line 95, col 8 of module ToyTwoCommit: 2
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2772:0 @!@!@
 <Prepare line 22, col 1 to line 22, col 11 of module ToyTwoCommit>: 0:0
@@ -110,11 +111,11 @@ The coverage statistics at 2025-06-03 17:21:04
 End of statistics.
 @!@!@ENDMSG 2202 @!@!@
 @!@!@STARTMSG 2200:0 @!@!@
-Progress(1) at 2025-06-03 17:21:04: 0 states generated (0 s/min), 0 distinct states found (0 ds/min), 0 states left on queue.
+Progress(1) at 2025-06-03 17:19:40: 0 states generated (0 s/min), 0 distinct states found (0 ds/min), 0 states left on queue.
 @!@!@ENDMSG 2200 @!@!@
 @!@!@STARTMSG 2199:0 @!@!@
 0 states generated, 0 distinct states found, 0 states left on queue.
 @!@!@ENDMSG 2199 @!@!@
 @!@!@STARTMSG 2186:0 @!@!@
-Finished in 2017ms at (2025-06-03 17:21:04)
+Finished in 1909ms at (2025-06-03 17:19:40)
 @!@!@ENDMSG 2186 @!@!@
