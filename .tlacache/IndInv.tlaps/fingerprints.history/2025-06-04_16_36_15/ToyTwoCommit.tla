@@ -60,10 +60,23 @@ Next ==
 
 Consistent == \A r1, r2 \in RMs: ~(rmState[r1] = "abort" /\ rmState[r2] = "commit")
 
- tmInitCase == \A rm \in tmPrepared:   tmState = "init"   => rmState[rm] = "prepared" \/ rmState[rm] = "commit"
- tmAbortCase == \A rm \in tmPrepared:  tmState = "abort"  => rmState[rm] = "prepared" \/ rmState[rm] = "abort"
- tmCommitCase == \A rm \in tmPrepared: tmState = "commit" => /\ rmState[rm] = "prepared" \/ rmState[rm] = "commit"
-                                                             /\ tmPrepared = RMs
+\* if abort then not commit /\
+\* if commit then not abort
+
+\* actually, if commit then not abort is good enough
+\* consider quantifying over something else, like tmPrepared?
+\* maybe a combo of checking tmState and tmPrepared is necessary.
+(***************************************************************************
+\* I == \A r1, r2 \in RMs: 
+\*    (r1#r2 /\ rmState[r1] = "commit") => tmPrepared = RMs
+ ***************************************************************************)
+ \* passes tests, but do I really trust that it's that easy?
+ tmInitCase == \A rm \in tmPrepared: tmState = "init"   => rmState[rm] = "prepared" \/ rmState[rm] = "commit"
+ tmAbortCase == \A rm \in tmPrepared: rmState[rm] = "prepared" \/ rmState[rm] = "abort"
+ tmCommitCase == \A rm \in tmPrepared: /\ rmState[rm] = "prepared" \/ rmState[rm] = "commit"
+                                       /\ tmPrepared = RMs
+
+\* clean up code later 
 tmPreparedInvNEW ==     
     /\ tmInitCase
     /\ tmAbortCase
@@ -79,13 +92,14 @@ tmPreparedInv ==
 RMsInv == 
     \A rm \in RMs:
         rmState[rm] = "commit" => /\ tmPrepared = RMs
-                                  /\ tmState = "commit"                                    
-  
+                                  /\ tmState = "commit" 
+\* formulas start with uppercase                                    
+        
 I == 
     /\ tmPreparedInv
     /\ RMsInv
     
-CandInv == I
+CandInv ==  I
 
 TestSpec == TypeOK /\ Init /\ [][Next]_vars
 
@@ -104,5 +118,5 @@ Inv ==
 
 =============================================================================
 \* Modification History
-\* Last modified Wed Jun 04 16:39:36 EDT 2025 by johnnguyen
+\* Last modified Wed Jun 04 13:08:36 EDT 2025 by johnnguyen
 \* Created Tue Jun 03 17:46:24 EDT 2025 by johnnguyen

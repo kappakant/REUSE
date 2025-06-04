@@ -33,13 +33,12 @@ THEOREM SafetyProperty == Inv => Consistent
         <2>5 rmState[tm2] = "commit" /\ (rmState[tm2] = "prepared" \/ rmState[tm2] = "abort") BY <1>3, <2>4
         <2>. QED BY <2>5
     
-    <1>c tmState = "commit" => rmState[tm3] # "abort"
-        <2>1 SUFFICES ASSUME tmState = "commit" PROVE rmState[tm3] # "abort" OBVIOUS
-        <2>2 \A tm \in tmPrepared: rmState[tm] = "prepared" \/ rmState[tm] = "commit" BY <1>1, <2>1 DEF Inv, I, tmPreparedInv
-        <2>3 tmPrepared = RMs BY <1>1, <1>3 DEF Inv, I, RMsInv
-        <2>4 rmState[tm3] = "prepared" \/ rmState[tm3] = "commit" BY <2>2, <2>3
-        <2>5 rmState[tm3] # "abort" BY <2>4
-        <2>. QED BY <2>5
+    <1>c CASE tmState = "commit"
+        <2>1 \A tm \in tmPrepared: rmState[tm] = "prepared" \/ rmState[tm] = "commit" BY <1>1, <1>c DEF Inv, I, tmPreparedInv
+
+        <2>3 tmPrepared = RMs BY <1>1 DEF Inv, I, RMsInv
+        <2>4 rmState[tm3] = "prepared" \/ rmState[tm3] = "commit" BY <2>1, <2>3
+        <2>. QED BY <2>4
     
     <1>. QED BY <1>2, <1>a, <1>b, <1>c
                   
@@ -56,6 +55,7 @@ THEOREM InductiveProperty == Inv /\ Next => Inv'
         <2>1 /\ rmState \in [RMs -> {"working", "prepared", "commit", "abort"}]
              /\ tmState \in {"init", "commit", "abort"}
              /\ tmPrepared \in SUBSET RMs BY <1>1 DEF Inv, TypeOK
+        \* <2>2 PICK rm \in RMs: Prepare(rm) \/ Commit(rm) \/ Abort(rm) \/ SilentAbort(rm) BY <1>1 DEF Next
         
          
         <2>a CASE Prepare(rm)
@@ -105,8 +105,8 @@ THEOREM InductiveProperty == Inv /\ Next => Inv'
     
         <2>. QED BY <1>1, <2>a, <2>b, <2>c, <2>d
     
-    
     <1>b I'
+        \* Cases for next
         <2>1 Prepare(rm) \/ Commit(rm) \/ Abort(rm) \/ SilentAbort(rm) BY <1>1
         
         <2>a CASE Prepare(rm)
@@ -158,6 +158,7 @@ THEOREM InductiveProperty == Inv /\ Next => Inv'
                   
             <3>7 RMsInv' BY <3>3, <3>4, <3>6 DEF RMsInv    
             
+            \* actually, both cases are true for basically the same reason. Much clean up to do in this section
             <3>a CASE tmState = "init"
                 <4>1 tmPreparedInv' \* same as before
                     <5> SUFFICES ASSUME NEW tm \in tmPrepared'
@@ -177,6 +178,7 @@ THEOREM InductiveProperty == Inv /\ Next => Inv'
                                                 /\ tmPrepared' = RMs BY <5>6, <5>7
                     <5>. QED BY <5>3, <5>4, <5>8
             
+
                 <4>. QED BY <4>1, <3>7 DEF I
                 
             <3>b CASE tmState = "commit"
@@ -405,5 +407,5 @@ THEOREM AlwaysConsistent ==
 
 =============================================================================
 \* Modification History
-\* Last modified Wed Jun 04 16:42:02 EDT 2025 by johnnguyen
+\* Last modified Wed Jun 04 16:32:14 EDT 2025 by johnnguyen
 \* Created Mon Jun 02 13:14:02 EDT 2025 by johnnguyen
