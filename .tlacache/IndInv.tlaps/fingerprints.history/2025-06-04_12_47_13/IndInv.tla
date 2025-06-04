@@ -41,7 +41,6 @@ THEOREM SafetyProperty == Inv => Consistent
     <1>. QED BY <1>2, <1>a, <1>b, <1>c
                   
 
-\* Super ugly and repetitive proof. A lot of what I assumed to be special cases were actually redundant and have general solutions
 THEOREM InductiveProperty == Inv /\ Next => Inv'
     <1>1 SUFFICES ASSUME Inv, NEW rm \in RMs, \* Note, this rm is an existential instantiation
                          Prepare(rm) \/ Commit(rm) \/ Abort(rm) \/ SilentAbort(rm) \* Essentially just Next, perhaps inelegant.
@@ -294,7 +293,7 @@ THEOREM InductiveProperty == Inv /\ Next => Inv'
                     <5>4 tmState' = "commit" => /\ rmState'[tm] = "prepared" \/ rmState'[tm] = "commit" 
                                                 /\ tmPrepared' = RMs BY <5>2
                     <5>5 rmState[tm] = "prepared" \/ rmState[tm] = "commit" BY <1>1, <3>3, <3>a DEF Inv, I, tmPreparedInv
-                    <5>6 rmState'[tm] = "prepared" \/ rmState'[tm] = "commit" BY <3>1, <3>5, <5>5
+                    <5>6 rmState'[tm] = "prepared" \/ rmState'[tm] = "commit" BY <3>1, <5>5
                     <5>7 tmState' = "init" => rmState'[tm] = "prepared" \/ rmState'[tm] = "commit" BY <5>6
                        
                     <5>. QED BY <5>3, <5>4, <5>7
@@ -387,5 +386,5 @@ THEOREM InductiveProperty == Inv /\ Next => Inv'
 
 =============================================================================
 \* Modification History
-\* Last modified Wed Jun 04 12:49:17 EDT 2025 by johnnguyen
+\* Last modified Wed Jun 04 12:47:12 EDT 2025 by johnnguyen
 \* Created Mon Jun 02 13:14:02 EDT 2025 by johnnguyen
