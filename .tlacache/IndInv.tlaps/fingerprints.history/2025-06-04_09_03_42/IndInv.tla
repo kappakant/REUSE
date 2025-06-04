@@ -160,7 +160,6 @@ THEOREM InductiveProperty == Inv /\ Next => Inv'
                                    /\ tmState' = "commit" => /\ rmState'[tm] = "prepared" /\ rmState'[tm] = "commit"
                                                              /\ tmPrepared' = RMs
                              BY DEF tmPreparedInv
-                    <5>1 
                     <5>. QED
             
             
@@ -191,5 +190,5 @@ THEOREM InductiveProperty == Inv /\ Next => Inv'
 
 =============================================================================
 \* Modification History
-\* Last modified Wed Jun 04 09:04:01 EDT 2025 by johnnguyen
+\* Last modified Wed Jun 04 09:03:41 EDT 2025 by johnnguyen
 \* Created Mon Jun 02 13:14:02 EDT 2025 by johnnguyen

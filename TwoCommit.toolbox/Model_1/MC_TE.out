@@ -2,7 +2,7 @@
 TLC2 Version 2.19 of 08 August 2024 (rev: 5a47802)
 @!@!@ENDMSG 2262 @!@!@
 @!@!@STARTMSG 2187:0 @!@!@
-Running breadth-first search Model-Checking with fp 10 and seed -3724579565575656762 with 4 workers on 8 cores with 1214MB heap and 2730MB offheap memory [pid: 79400] (Mac OS X 10.16 x86_64, AdoptOpenJDK 14.0.1 x86_64, OffHeapDiskFPSet, DiskStateQueue).
+Running breadth-first search Model-Checking with fp 118 and seed 4139551058299281928 with 4 workers on 8 cores with 1214MB heap and 2730MB offheap memory [pid: 63592] (Mac OS X 10.16 x86_64, AdoptOpenJDK 14.0.1 x86_64, OffHeapDiskFPSet, DiskStateQueue).
 @!@!@ENDMSG 2187 @!@!@
 @!@!@STARTMSG 2220:0 @!@!@
 Starting SANY...
@@ -13,7 +13,7 @@ Parsing file /Applications/TLA+ Toolbox.app/Contents/Eclipse/plugins/org.lamport
 Parsing file /Users/johnnguyen/Desktop/TLA/TwoCommit.toolbox/Model_1/TCommit.tla
 Parsing file /Applications/TLA+ Toolbox.app/Contents/Eclipse/plugins/org.lamport.tlatools_1.0.0.202408081326/tla2sany/StandardModules/Naturals.tla
 Parsing file /Applications/TLA+ Toolbox.app/Contents/Eclipse/plugins/org.lamport.tlatools_1.0.0.202408081326/tla2sany/StandardModules/Sequences.tla
-Parsing file /Applications/TLA+ Toolbox.app/Contents/Eclipse/plugins/org.lamport.tlatools_1.0.0.202408081326/tla2sany/StandardModules/FiniteSets.tla
+Parsing file /usr/local/lib/tlaps/FiniteSets.tla
 Semantic processing of module TCommit
 Semantic processing of module TwoCommit
 Semantic processing of module Naturals
@@ -25,13 +25,13 @@ Semantic processing of module MC
 SANY finished.
 @!@!@ENDMSG 2219 @!@!@
 @!@!@STARTMSG 2185:0 @!@!@
-Starting... (2025-05-14 17:34:06)
+Starting... (2025-06-03 17:44:38)
 @!@!@ENDMSG 2185 @!@!@
 @!@!@STARTMSG 2189:0 @!@!@
 Computing initial states...
 @!@!@ENDMSG 2189 @!@!@
 @!@!@STARTMSG 2190:0 @!@!@
-Finished computing initial states: 1 distinct state generated at 2025-05-14 17:34:07.
+Finished computing initial states: 1 distinct state generated at 2025-06-03 17:44:40.
 @!@!@ENDMSG 2190 @!@!@
 @!@!@STARTMSG 2193:0 @!@!@
 Model checking completed. No error has been found.
@@ -40,7 +40,7 @@ Model checking completed. No error has been found.
   calculated (optimistic):  val = 1.3E-14
 @!@!@ENDMSG 2193 @!@!@
 @!@!@STARTMSG 2201:0 @!@!@
-The coverage statistics at 2025-05-14 17:34:07
+The coverage statistics at 2025-06-03 17:44:40
 @!@!@ENDMSG 2201 @!@!@
 @!@!@STARTMSG 2773:0 @!@!@
 <TPInit line 57, col 1 to line 57, col 6 of module TwoCommit>: 1:1
@@ -49,7 +49,7 @@ The coverage statistics at 2025-05-14 17:34:07
   line 61, col 3 to line 64, col 14 of module TwoCommit: 1
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2772:0 @!@!@
-<TMRcvPrepared line 70, col 1 to line 70, col 16 of module TwoCommit>: 21:96
+<TMRcvPrepared line 70, col 1 to line 70, col 16 of module TwoCommit>: 23:96
 @!@!@ENDMSG 2772 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
   line 78, col 6 to line 78, col 21 of module TwoCommit: 960
@@ -100,7 +100,7 @@ The coverage statistics at 2025-05-14 17:34:07
   line 92, col 6 to line 92, col 38 of module TwoCommit: 1
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2772:0 @!@!@
-<TMAbort line 94, col 1 to line 94, col 7 of module TwoCommit>: 25:64
+<TMAbort line 94, col 1 to line 94, col 7 of module TwoCommit>: 22:64
 @!@!@ENDMSG 2772 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
   line 98, col 6 to line 98, col 21 of module TwoCommit: 352
@@ -118,7 +118,7 @@ The coverage statistics at 2025-05-14 17:34:07
   line 101, col 6 to line 101, col 38 of module TwoCommit: 64
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2772:0 @!@!@
-<RMPrepare line 103, col 1 to line 103, col 12 of module TwoCommit>: 57:156
+<RMPrepare line 103, col 1 to line 103, col 12 of module TwoCommit>: 55:156
 @!@!@ENDMSG 2772 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
   line 107, col 6 to line 107, col 27 of module TwoCommit: 1020
@@ -136,7 +136,7 @@ The coverage statistics at 2025-05-14 17:34:07
   line 110, col 6 to line 110, col 38 of module TwoCommit: 156
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2772:0 @!@!@
-<RMChooseToAbort line 112, col 1 to line 112, col 18 of module TwoCommit>: 66:156
+<RMChooseToAbort line 112, col 1 to line 112, col 18 of module TwoCommit>: 65:156
 @!@!@ENDMSG 2772 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
   line 117, col 6 to line 117, col 27 of module TwoCommit: 1020
@@ -169,7 +169,7 @@ The coverage statistics at 2025-05-14 17:34:07
   line 127, col 6 to line 127, col 44 of module TwoCommit: 24
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2772:0 @!@!@
-<RMRcvAbortMsg line 129, col 1 to line 129, col 16 of module TwoCommit>: 110:648
+<RMRcvAbortMsg line 129, col 1 to line 129, col 16 of module TwoCommit>: 114:648
 @!@!@ENDMSG 2772 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
   line 133, col 6 to line 133, col 32 of module TwoCommit: 1512
@@ -196,7 +196,7 @@ The coverage statistics at 2025-05-14 17:34:07
 End of statistics.
 @!@!@ENDMSG 2202 @!@!@
 @!@!@STARTMSG 2200:0 @!@!@
-Progress(11) at 2025-05-14 17:34:07: 1,146 states generated (30,889 s/min), 288 distinct states found (7,762 ds/min), 0 states left on queue.
+Progress(11) at 2025-06-03 17:44:40: 1,146 states generated (26,244 s/min), 288 distinct states found (6,595 ds/min), 0 states left on queue.
 @!@!@ENDMSG 2200 @!@!@
 @!@!@STARTMSG 2199:0 @!@!@
 1146 states generated, 288 distinct states found, 0 states left on queue.
@@ -208,5 +208,5 @@ The depth of the complete state graph search is 11.
 The average outdegree of the complete state graph is 1 (minimum is 0, the maximum 7 and the 95th percentile is 3).
 @!@!@ENDMSG 2268 @!@!@
 @!@!@STARTMSG 2186:0 @!@!@
-Finished in 2246ms at (2025-05-14 17:34:07)
+Finished in 2652ms at (2025-06-03 17:44:40)
 @!@!@ENDMSG 2186 @!@!@

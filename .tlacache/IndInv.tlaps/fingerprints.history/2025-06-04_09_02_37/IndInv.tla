@@ -154,14 +154,6 @@ THEOREM InductiveProperty == Inv /\ Next => Inv'
             
             <3>a CASE tmState = "init"
                 <4>a tmPreparedInv'
-                    <5> SUFFICES ASSUME NEW tm \in tmPrepared
-                             PROVE /\ tmState' = "init" => rmState'[tm] = "prepared" \/ rmState'[tm] = "commit"
-                                   /\ tmState' = "abort" => rmState'[tm] = "prepared" \/ rmState'[tm] = "abort"
-                                   /\ tmState' = "commit" => /\ rmState'[tm] = "prepared" /\ rmState'[tm] = "commit"
-                                                             /\ tmPrepared' = RMs
-                             BY DEF tmPreparedInv
-                    <5>1 
-                    <5>. QED
             
             
                 <4>b RMsInv'
@@ -191,5 +183,5 @@ THEOREM InductiveProperty == Inv /\ Next => Inv'
 
 =============================================================================
 \* Modification History
-\* Last modified Wed Jun 04 09:04:01 EDT 2025 by johnnguyen
+\* Last modified Wed Jun 04 09:02:36 EDT 2025 by johnnguyen
 \* Created Mon Jun 02 13:14:02 EDT 2025 by johnnguyen
