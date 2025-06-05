@@ -1,4 +1,4 @@
 *.toolbox/
-tlacache/
+.tlacache/
 texput.log
 *.pdf
