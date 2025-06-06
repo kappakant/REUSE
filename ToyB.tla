@@ -1,28 +1,29 @@
 -------------------------------- MODULE ToyB --------------------------------
-CONSTANT RMs
+EXTENDS SharedVariables
+
 VARIABLES oncePrepare, onceCommit, onceAbort
 
-Init == 
-    /\ oncePrepare == [rm \in RMs |-> FALSE]
-    /\ onceCommit  == [rm \in RMs |-> FALSE]
-    /\ oceAbort    == [rm \in RMs |-> FALSE]
+InitToyB == 
+    /\ oncePrepare = [rm \in RMs |-> FALSE]
+    /\ onceCommit  = [rm \in RMs |-> FALSE]
+    /\ onceAbort    = [rm \in RMs |-> FALSE]
     
-Prepare(rm) ==
+PrepareToyB(rm) ==
     /\ oncePrepare[rm] = TRUE
     /\ UNCHANGED(onceCommit)
     /\ UNCHANGED(onceAbort)
     
-Commit(rm) ==
+CommitToyB(rm) ==
     /\ onceCommit[rm] = TRUE
     /\ UNCHANGED(oncePrepare)
     /\ UNCHANGED(onceAbort)
     
-Abort(rm) ==
+AbortToyB(rm) ==
     /\ onceAbort[rm] = TRUE
     /\ UNCHANGED(oncePrepare)
     /\ UNCHANGED(onceCommit)
 
 =============================================================================
 \* Modification History
-\* Last modified Thu Jun 05 10:21:06 EDT 2025 by johnnguyen
-\* Created Thu Jun 05 10:18:42 EDT 2025 by johnnguyen
+\* Last modified Thu Jun 05 20:10:14 EDT 2025 by johnnguyen
+\* Created Thu Jun 05 20:02:38 EDT 2025 by johnnguyen

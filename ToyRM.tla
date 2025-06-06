@@ -1,24 +1,25 @@
 ------------------------------- MODULE ToyRM -------------------------------
-CONSTANT RMs
+EXTENDS SharedVariables
 VARIABLES rmState
 
-Init == rmState = [rm \in rmState |-> "working"]
+InitToyRM == rmState = [rm \in rmState |-> "working"]
 
-Prepare(rm) ==
+PrepareToyRM(rm) ==
     /\ rmState[rm] = "working"
     /\ rmState' = [rmState EXCEPT ![rm] = "prepared"]
 
-Commit(rm) ==
+CommitToyRM(rm) ==
     /\ rmState' = [rmState EXCEPT ![rm] = "commit"]
     
-Abort(rm) ==
+AbortToyRM(rm) ==
     /\ rmState' = [rmState EXCEPT ![rm] = "abort"]
     
-SilentAbort(rm) ==
+SilentAbortToyRM(rm) ==
     /\ rmState[rm] = "working"
     /\ rmState' = [rmState EXCEPT ![rm] = "abort"]
 
+
 =============================================================================
 \* Modification History
-\* Last modified Wed Jun 04 20:06:47 EDT 2025 by johnnguyen
-\* Created Wed Jun 04 19:11:02 EDT 2025 by johnnguyen
+\* Last modified Thu Jun 05 20:10:26 EDT 2025 by johnnguyen
+\* Created Thu Jun 05 20:04:11 EDT 2025 by johnnguyen
